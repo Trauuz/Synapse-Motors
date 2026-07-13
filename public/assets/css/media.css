@@ -3,6 +3,9 @@
     .desktop-nav, .nav-actions > a { display: none; }
     .menu-toggle { display: inline-flex; align-items: center; gap: var(--space-sm); }
     .menu-lines { width: 1.1rem; height: .65rem; border-block: var(--rule-hair) solid currentColor; }
+    .inventory-hero { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .inventory-cards { grid-template-columns: minmax(0, 1fr); }
+    .inventory-record { grid-template-columns: minmax(0, 1fr); }
     .vehicle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .vehicle-card:last-child { grid-column: 1 / -1; width: calc(50% - var(--space-xs)); }
     .journal { grid-template-columns: minmax(0, 1fr); }
@@ -18,6 +21,16 @@
     .nav-shell { height: 4rem; padding-inline: var(--space-md); }
     .brand-logo { width: 2rem; height: 2rem; }
     .brand-name { font-size: var(--text-body); }
+    .site-footer .brand-logo { width: 2.75rem; height: 2.75rem; }
+    .site-footer .brand-name { font-size: 1em; }
+    .inventory-hero { padding-block: var(--space-3xl) var(--space-xl); }
+    .inventory-hero-copy > p:last-child { font-size: var(--text-body); }
+    .inventory-hero-panel { padding: var(--space-lg); }
+    .inventory-hero-actions { align-items: stretch; }
+    .inventory-hero-actions .browse-cars-link { width: 100%; }
+    .inventory-directory-note { max-width: 100%; }
+    .inventory-record-body { padding: var(--space-md); }
+    .inventory-specs { grid-template-columns: minmax(0, 1fr); }
     .hero { height: 78dvh; min-height: 34rem; }
     .hero > img { object-position: 62% center; }
     .hero-shade { background: linear-gradient(0deg, var(--color-overlay), transparent 75%); }

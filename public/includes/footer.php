@@ -1,7 +1,13 @@
+<?php
+$homeHref = 'index.php';
+$inventoryHref = 'inventory.php';
+$journalHref = 'index.php#journal';
+$supportHref = 'index.php#visit';
+?>
 <footer class="site-footer">
     <div class="footer-main">
         <nav class="footer-column" aria-labelledby="footer-help-title">
-            <a class="wordmark" href="#top" aria-label="Synapse Motors home">
+            <a class="wordmark" href="<?= $homeHref ?>" aria-label="Synapse Motors home">
                 <img class="brand-logo" src="assets/images/company-logo.png" width="813" height="949"
                     alt="Synapse Motors logo">
                 <span class="brand-name">SYNAPSE</span>
@@ -11,7 +17,7 @@
             <h2 id="footer-contact-title" class="footer-heading">Contact us</h2>
             <ul class="footer-links footer-links-strong">
                 <li><a href="https://wa.me/852800906220">WhatsApp</a></li>
-                <li><a href="#visit">Live Chat</a></li>
+                <li><a href="<?= $supportHref ?>">Live Chat</a></li>
             </ul>
             <div class="footer-contact-copy">
                 <p><strong>Phone:</strong> +852 8009 06220 (Toll Free)</p>
@@ -24,12 +30,13 @@
         <nav class="footer-column" aria-labelledby="footer-help-title">
             <h2 id="footer-help-title" class="footer-heading">Help</h2>
             <ul class="footer-links">
-                <li><a href="#inventory">Track Order &amp; Return</a></li>
-                <li><a href="#visit">Ordering &amp; Payment</a></li>
-                <li><a href="#visit">Delivery</a></li>
-                <li><a href="#visit">Returns &amp; Refunds</a></li>
-                <li><a href="#inventory">Size Guide</a></li>
-                <li><a href="#journal">Our Products</a></li>
+                <li><a href="<?= $journalHref ?>">About us</a></li>
+                <li><a href="<?= $inventoryHref ?>">Track Order &amp; Return</a></li>
+                <li><a href="<?= $supportHref ?>">Ordering &amp; Payment</a></li>
+                <li><a href="<?= $supportHref ?>">Delivery</a></li>
+                <li><a href="<?= $supportHref ?>">Returns &amp; Refunds</a></li>
+                <li><a href="<?= $inventoryHref ?>">Size Guide</a></li>
+                <li><a href="<?= $journalHref ?>">Our Products</a></li>
             </ul>
         </nav>
     </div>

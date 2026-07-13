@@ -21,6 +21,7 @@ $expectations = [
     'guest page landmark' => '<main id="main-content">',
     'inventory heading' => 'Find your next drive.',
     'primary action' => 'Explore inventory',
+    'inventory route' => 'inventory.php',
     'test drive action' => 'Book a test drive',
     'navbar include' => "require __DIR__ . '/includes/navbar.php';",
     'footer include' => "require __DIR__ . '/includes/footer.php';",

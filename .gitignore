@@ -1,0 +1,8 @@
+.agents/
+.hallmark/
+.tests/
+
+.skills-lock.json
+.env
+.env.local
+.env.*.local

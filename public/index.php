@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
+<?php require_once dirname(__DIR__) . '/app/helpers/vehicles.php'; ?>
 
 <head>
     <meta charset="utf-8">
@@ -20,7 +22,7 @@
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="announcement">
-        <p>Complimentary nationwide delivery on selected vehicles.</p><a href="#inventory">See available cars</a>
+        <p>Complimentary nationwide delivery on selected vehicles.</p><a href="inventory.php">See available cars</a>
     </div>
 
     <?php require __DIR__ . '/includes/navbar.php'; ?>
@@ -33,7 +35,7 @@
             <div class="hero-copy">
                 <p>New collection &middot; Coast road</p>
                 <h1 id="hero-title">Find your next drive.</h1>
-                <div class="hero-actions"><a class="button button-light" href="#inventory">Explore inventory</a><a
+                <div class="hero-actions"><a class="button button-light" href="inventory.php">Explore inventory</a><a
                         class="button button-ghost" href="#visit">Book a test drive</a></div>
             </div>
             <p class="hero-caption">Graphite coupe &middot; North coast, early light</p>
@@ -45,7 +47,7 @@
                     <p class="section-kicker">The current edit</p>
                     <h2 id="inventory-title">Cars worth leaving for.</h2>
                 </div>
-                <a class="text-link" href="#visit">View all inventory <span aria-hidden="true">&rarr;</span></a>
+                <a class="text-link" href="inventory.php">View inventory <span aria-hidden="true">&rarr;</span></a>
             </div>
             <div class="filter-row" role="group" aria-label="Filter featured vehicles"><button class="filter is-active"
                     type="button" data-filter="all" aria-pressed="true">All</button><button class="filter" type="button"
@@ -54,23 +56,22 @@
                     type="button" data-filter="touring" aria-pressed="false">Grand touring</button></div>
             <div class="vehicle-grid" aria-live="polite">
                 <?php
-            $vehicles = [
-                ['Apex GT', 'Performance &middot; Petrol', 'performance touring', 'hero-coast.png', 1962, 802, 'Graphite performance coupe on a coastal overlook'],
-                ['Vela R', 'Grand touring &middot; Petrol', 'performance touring', 'tunnel-gt.png', 1796, 876, 'Oxblood grand touring coupe driving through a concrete tunnel'],
-                ['Northline E', 'SUV &middot; Electric', 'electric', 'alpine-suv.png', 1536, 1024, 'Silver electric SUV parked beside a lakeside cabin'],
-            ];
-            foreach ($vehicles as [$name, $detail, $category, $image, $width, $height, $alt]): ?>
-                <article class="vehicle-card" data-category="<?= htmlspecialchars($category) ?>">
-                    <a class="vehicle-image" href="#visit" aria-label="View <?= htmlspecialchars($name) ?>"><img
-                            src="assets/images/<?= htmlspecialchars($image) ?>" width="<?= $width ?>"
-                            height="<?= $height ?>" loading="lazy" alt="<?= htmlspecialchars($alt) ?>"></a>
+            $vehicles = array_slice(synapse_vehicle_inventory(), 0, 3);
+            foreach ($vehicles as $vehicle): ?>
+                <article class="vehicle-card" data-category="<?= htmlspecialchars($vehicle['category']) ?>">
+                    <a class="vehicle-image" href="inventory.php"
+                        aria-label="View <?= htmlspecialchars($vehicle['name']) ?>"><img
+                            src="assets/images/<?= htmlspecialchars($vehicle['image']) ?>"
+                            width="<?= $vehicle['width'] ?>" height="<?= $vehicle['height'] ?>" loading="lazy"
+                            alt="<?= htmlspecialchars($vehicle['alt']) ?>"></a>
                     <div class="vehicle-meta">
                         <div>
-                            <h3><?= htmlspecialchars($name) ?></h3>
-                            <p><?= $detail ?></p>
+                            <h3><?= htmlspecialchars($vehicle['name']) ?></h3>
+                            <p><?= $vehicle['detail'] ?></p>
                         </div>
-                        <button class="save-button" type="button" aria-label="Save <?= htmlspecialchars($name) ?>"
-                            aria-pressed="false" data-save><svg aria-hidden="true" viewBox="0 0 24 24">
+                        <button class="save-button" type="button"
+                            aria-label="Save <?= htmlspecialchars($vehicle['name']) ?>" aria-pressed="false"
+                            data-save><svg aria-hidden="true" viewBox="0 0 24 24">
                                 <path
                                     d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z">
                                 </path>
@@ -87,8 +88,7 @@
             <div class="story-card">
                 <p>Road note &middot; 01</p>
                 <h2 id="touring-title">Built for the long way home.</h2>
-                <a class="text-link light-link" href="#visit">Meet the grand tourers <span
-                        aria-hidden="true">&rarr;</span></a>
+                <a class="text-link light-link">Meet the grand tourers <span aria-hidden="true">&rarr;</span></a>
             </div>
         </section>
 
@@ -107,6 +107,9 @@
 
     <?php require __DIR__ . '/includes/footer.php'; ?>
 
+    <script>
+    window.SUPABASE_CONFIG = <?= json_encode(supabase_public_config(), JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) ?>;
+    </script>
     <script src="assets/js/landing.js" defer></script>
 </body>
 

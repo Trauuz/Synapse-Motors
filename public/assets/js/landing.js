@@ -1,6 +1,21 @@
 (() => {
     'use strict';
 
+    const applyFilter = (selected) => {
+        const availableFilters = new Set(Array.from(document.querySelectorAll('[data-filter]'), (item) => item.dataset.filter));
+        const activeFilter = availableFilters.has(selected) ? selected : 'all';
+
+        document.querySelectorAll('[data-filter]').forEach((item) => {
+            const active = item.dataset.filter === activeFilter;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+        });
+
+        document.querySelectorAll('[data-category]').forEach((card) => {
+            card.hidden = activeFilter !== 'all' && !card.dataset.category.split(' ').includes(activeFilter);
+        });
+    };
+
     const menuTrigger = document.querySelector('[data-menu-trigger]');
     const menuPanel = document.querySelector('[data-menu-panel]');
     const scrim = document.querySelector('[data-scrim]');
@@ -57,17 +72,12 @@
 
     document.querySelectorAll('[data-filter]').forEach((button) => {
         button.addEventListener('click', () => {
-            const selected = button.dataset.filter;
-            document.querySelectorAll('[data-filter]').forEach((item) => {
-                const active = item === button;
-                item.classList.toggle('is-active', active);
-                item.setAttribute('aria-pressed', String(active));
-            });
-            document.querySelectorAll('[data-category]').forEach((card) => {
-                card.hidden = selected !== 'all' && !card.dataset.category.split(' ').includes(selected);
-            });
+            applyFilter(button.dataset.filter);
         });
     });
+
+    const requestedFilter = new URLSearchParams(window.location.search).get('filter');
+    if (requestedFilter) applyFilter(requestedFilter);
 
     document.querySelectorAll('[data-save]').forEach((button) => {
         button.addEventListener('click', () => {
