@@ -1,0 +1,15 @@
+{
+  "date": "2026-07-13",
+  "font_stack": null,
+  "palette": null,
+  "motion": "motion-cut",
+  "spacing": null,
+  "framework": "vanilla PHP",
+  "preserve": [],
+  "introduced": [
+    "component-scoped tokens",
+    "responsive behavior",
+    "interaction states",
+    "reduced-motion support"
+  ]
+}
