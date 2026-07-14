@@ -4,25 +4,21 @@
 
 <?php
 require_admin();
-record_admin_activity('Viewed dashboard', 'Opened the seller dashboard.');
+record_admin_activity('Viewed reports', 'Reviewed inventory counts and personal audit log.');
 
 $inventory = synapse_vehicle_inventory();
-$admins = admin_user_accounts();
-$currentAdmin = current_admin_account();
 $auditEntries = current_admin_audit_log();
-$activeAdminCount = count(array_filter($admins, static fn(array $admin): bool => ($admin['access_status'] ?? '') === 'active'));
-$activeVehicleCount = count(array_filter($inventory, static fn(array $vehicle): bool => (int) ($vehicle['stock_quantity'] ?? 0) > 0));
+$sortedInventory = $inventory;
+usort($sortedInventory, static fn(array $left, array $right): int => ((int) ($left['stock_quantity'] ?? 0)) <=> ((int) ($right['stock_quantity'] ?? 0)));
+$currentAdmin = current_admin_account();
 $totalUnits = array_sum(array_map(static fn(array $vehicle): int => (int) ($vehicle['stock_quantity'] ?? 0), $inventory));
-$recentActivity = array_slice($auditEntries, 0, 5);
-$inventoryStatus = array_values(array_filter($inventory, static fn(array $vehicle): bool => (int) ($vehicle['stock_quantity'] ?? 0) <= 2));
-usort($inventoryStatus, static fn(array $left, array $right): int => ((int) ($left['stock_quantity'] ?? 0)) <=> ((int) ($right['stock_quantity'] ?? 0)));
-$inventoryStatus = array_slice($inventoryStatus, 0, 5);
+$lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool => (int) ($vehicle['stock_quantity'] ?? 0) <= 2));
 ?>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Seller dashboard</title>
+    <title>Reports</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -47,10 +43,10 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                 </a>
                 <p class="admin-sidebar-label">Seller control</p>
                 <nav class="admin-side-nav">
-                    <a class="admin-nav-link is-active" href="dashboard.php"><span>Dashboard</span></a>
+                    <a class="admin-nav-link" href="dashboard.php"><span>Dashboard</span></a>
                     <a class="admin-nav-link" href="inventory.php"><span>Inventory</span></a>
                     <a class="admin-nav-link" href="admins.php"><span>Admin users</span></a>
-                    <a class="admin-nav-link" href="reports.php"><span>Reports</span></a>
+                    <a class="admin-nav-link is-active" href="reports.php"><span>Reports</span></a>
                 </nav>
             </div>
             <div class="admin-sidebar-bottom">
@@ -67,23 +63,13 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                 <header class="admin-topbar">
                     <div>
                         <p class="section-kicker">Overview</p>
-                        <h1>Dashboard</h1>
-                        <p class="admin-page-copy">Manage the live catalog, seller access, and activity reports from one place.</p>
+                        <h1>Reports</h1>
+                        <p class="admin-page-copy">Track inventory pressure and review the audit trail for <?= e((string) ($currentAdmin['name'] ?? 'this admin')) ?>.</p>
                     </div>
-                    <a class="admin-primary-action" href="inventory.php">Open inventory</a>
+                    <a class="admin-primary-action" href="dashboard.php">Back to dashboard</a>
                 </header>
 
-                <section class="admin-welcome-card">
-                    <p class="section-kicker">Synapse Motors seller portal</p>
-                    <h2>Welcome back, <?= e((string) ($currentAdmin['name'] ?? 'System Admin')) ?></h2>
-                    <p>Everything you need to control the online dealership is available from this workbench.</p>
-                    <div class="admin-inline-actions">
-                        <a class="button button-dark" href="inventory.php">Manage inventory</a>
-                        <a class="button button-light" href="reports.php">View reports</a>
-                    </div>
-                </section>
-
-                <section class="admin-stat-grid" aria-label="Seller summary">
+                <section class="admin-stat-grid" aria-label="Report summary">
                     <article class="admin-stat-card admin-stat-card-a">
                         <div>
                             <p class="admin-stat-label">Available stock</p>
@@ -92,20 +78,20 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                     </article>
                     <article class="admin-stat-card admin-stat-card-b">
                         <div>
-                            <p class="admin-stat-label">Active listings</p>
-                            <h2><?= $activeVehicleCount ?></h2>
+                            <p class="admin-stat-label">Low stock items</p>
+                            <h2><?= $lowStockCount ?></h2>
                         </div>
                     </article>
                     <article class="admin-stat-card admin-stat-card-c">
                         <div>
-                            <p class="admin-stat-label">Admin users</p>
-                            <h2><?= $activeAdminCount ?></h2>
+                            <p class="admin-stat-label">Audit entries</p>
+                            <h2><?= count($auditEntries) ?></h2>
                         </div>
                     </article>
                     <article class="admin-stat-card admin-stat-card-d">
                         <div>
-                            <p class="admin-stat-label">Logged actions</p>
-                            <h2><?= count($auditEntries) ?></h2>
+                            <p class="admin-stat-label">Account</p>
+                            <h2><?= e((string) ($currentAdmin['access_status'] ?? 'active')) ?></h2>
                         </div>
                     </article>
                 </section>
@@ -115,9 +101,8 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                         <div class="admin-panel-head">
                             <div>
                                 <h2>Inventory status</h2>
-                                <p>Items with the lowest remaining stock.</p>
+                                <p>Remaining units across the current catalog.</p>
                             </div>
-                            <a class="admin-panel-link" href="inventory.php">View all</a>
                         </div>
                         <div class="admin-table-wrap">
                             <table class="admin-table">
@@ -130,20 +115,20 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if ($inventoryStatus === []): ?>
-                                    <tr>
-                                        <td colspan="4">No low-stock inventory needs attention right now.</td>
-                                    </tr>
-                                    <?php else: ?>
-                                    <?php foreach ($inventoryStatus as $vehicle): ?>
+                                    <?php foreach ($sortedInventory as $vehicle): ?>
                                     <tr>
                                         <td><?= e((string) ($vehicle['name'] ?? '')) ?></td>
                                         <td><?= e(format_vehicle_price_php((int) ($vehicle['price'] ?? 0))) ?></td>
                                         <td><?= (int) ($vehicle['stock_quantity'] ?? 0) ?></td>
-                                        <td><span class="admin-status-badge admin-status-badge-alert">Low stock</span></td>
+                                        <td>
+                                            <?php if ((int) ($vehicle['stock_quantity'] ?? 0) <= 2): ?>
+                                            <span class="admin-status-badge admin-status-badge-alert">Low stock</span>
+                                            <?php else: ?>
+                                            <span class="admin-status-badge admin-status-badge-calm"><?= e((string) ($vehicle['availability'] ?? 'Available')) ?></span>
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
-                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -152,21 +137,20 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                     <article class="admin-panel admin-panel-activity">
                         <div class="admin-panel-head">
                             <div>
-                                <h2>Recent activity</h2>
-                                <p>Latest administrator actions from your account.</p>
+                                <h2>Audit log</h2>
+                                <p>Every recorded seller action for the current account.</p>
                             </div>
-                            <a class="admin-panel-link" href="reports.php">View report</a>
                         </div>
                         <div class="admin-activity-list">
-                            <?php if ($recentActivity === []): ?>
+                            <?php if ($auditEntries === []): ?>
                             <div class="admin-activity-item">
                                 <div>
-                                    <strong>No activity yet</strong>
-                                    <p>New seller actions will appear here after the first inventory or admin update.</p>
+                                    <strong>No seller activity yet</strong>
+                                    <p>Open inventory or admin tools to begin generating an audit trail.</p>
                                 </div>
                             </div>
                             <?php else: ?>
-                            <?php foreach ($recentActivity as $entry): ?>
+                            <?php foreach ($auditEntries as $entry): ?>
                             <div class="admin-activity-item">
                                 <div>
                                     <strong><?= e((string) ($entry['action'] ?? 'Seller action')) ?></strong>

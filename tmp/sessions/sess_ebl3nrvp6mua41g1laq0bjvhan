@@ -1,0 +1,1 @@
+auth_user|a:4:{s:12:"auth_user_id";s:15:"checkout-user-1";s:5:"email";s:18:"driver@example.com";s:4:"name";s:11:"Test Driver";s:4:"role";s:5:"Buyer";}cart_items|a:0:{}

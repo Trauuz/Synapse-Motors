@@ -12,6 +12,21 @@
     .inventory-hero { grid-template-columns: minmax(0, 1fr); align-items: start; }
     .inventory-cards { grid-template-columns: minmax(0, 1fr); }
     .inventory-record { grid-template-columns: minmax(0, 1fr); }
+    .admin-workbench { grid-template-columns: minmax(0, 1fr); }
+    .admin-sidebar { position: static; min-height: auto; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+    .admin-sidebar-top { gap: var(--space-lg); }
+    .admin-sidebar-bottom { margin-top: 0; padding-top: 0; justify-items: end; align-content: start; border-top: 0; }
+    .admin-dashboard-grid, .admin-card-grid { grid-template-columns: minmax(0, 1fr); }
+    .admin-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .admin-topbar { align-items: flex-start; flex-direction: column; }
+    .admin-inline-form { grid-template-columns: minmax(0, 1fr); }
+    .admin-inline-form-inventory { grid-template-columns: minmax(0, 1fr); }
+    .admin-table-form { grid-template-columns: minmax(0, 1fr); }
+    .admin-editor-modal-form { grid-template-columns: minmax(0, 1fr); }
+    .cart-layout, .cart-card { grid-template-columns: minmax(0, 1fr); }
+    .cart-summary { position: static; }
+    .checkout-marquee, .payment-marquee, .checkout-grid, .payment-grid, .payment-success-card { grid-template-columns: minmax(0, 1fr); }
+    .checkout-summary-card, .payment-summary-card { position: static; }
     .vehicle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .vehicle-card:last-child { grid-column: 1 / -1; width: calc(50% - var(--space-xs)); }
     .about-marquee { grid-template-columns: minmax(0, 1fr); align-items: start; }
@@ -50,6 +65,32 @@
     .inventory-directory-note { max-width: 100%; }
     .inventory-record-body { padding: var(--space-md); }
     .inventory-specs { grid-template-columns: minmax(0, 1fr); }
+    .inventory-record-actions { grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+    .inventory-record-actions .browse-cars-link { width: 100%; }
+    .admin-sidebar { grid-template-columns: minmax(0, 1fr); padding: var(--space-lg) var(--space-md); }
+    .admin-content { padding-inline: 0; }
+    .admin-shell { gap: var(--space-md); }
+    .admin-topbar { padding-inline: var(--space-md); }
+    .admin-page-copy, .admin-welcome-card p:last-of-type { font-size: var(--text-body); }
+    .admin-stat-grid { grid-template-columns: minmax(0, 1fr); }
+    .admin-welcome-card, .admin-editor-head, .admin-editor-form, .admin-inline-form, .admin-panel, .admin-stat-card { padding: var(--space-lg); }
+    .admin-topbar, .admin-inline-actions { align-items: stretch; }
+    .admin-primary-action, .admin-inline-actions .button { width: 100%; justify-content: flex-start; }
+    .admin-editor-head { flex-direction: column; }
+    .admin-table { min-width: 34rem; }
+    .admin-editor-modal { padding: var(--space-lg); }
+    .cart-page { padding-inline: var(--space-md); }
+    .checkout-page, .payment-page { padding-inline: var(--space-md); }
+    .cart-card-body, .cart-summary, .cart-empty-state { padding: var(--space-lg); }
+    .checkout-section-card, .payment-method-card, .checkout-summary-card, .payment-summary-card, .payment-success-card, .checkout-marquee-note, .checkout-sidebar-note { padding: var(--space-lg); }
+    .cart-card-specs { grid-template-columns: minmax(0, 1fr); }
+    .cart-empty-actions, .cart-summary-actions { align-items: stretch; }
+    .cart-empty-actions .button, .cart-summary-actions .button { width: 100%; }
+    .checkout-field-grid { grid-template-columns: minmax(0, 1fr); }
+    .checkout-actions, .payment-success-actions, .payment-confirm-row { align-items: stretch; flex-direction: column; }
+    .checkout-submit, .checkout-actions .text-link, .payment-success-actions .button { width: 100%; }
+    .checkout-actions .text-link, .payment-success-actions .text-link { justify-content: flex-start; }
+    .checkout-summary-list li { flex-direction: column; align-items: flex-start; }
     .hero { height: 78dvh; min-height: 34rem; }
     .hero > img { object-position: 62% center; }
     .hero-shade { background: linear-gradient(0deg, var(--color-overlay), transparent 75%); }
@@ -68,6 +109,10 @@
     .inventory-search { width: 100%; flex-basis: auto; }
     .auth-modal { max-height: min(88dvh, 42rem); }
     .auth-modal-form { grid-template-columns: minmax(0, 1fr); }
+    .order-complete-modal { padding: var(--space-xl); }
+    .order-complete-meta { grid-template-columns: minmax(0, 1fr); }
+    .order-complete-actions { align-items: stretch; }
+    .order-complete-actions .button, .order-complete-actions .text-link { width: 100%; justify-content: flex-start; }
     .auth-callback-card { padding: var(--space-xl); }
     .auth-callback-card h1 { max-width: 100%; font-size: clamp(2.6rem, 12vw, 4rem); }
     .vehicle-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }

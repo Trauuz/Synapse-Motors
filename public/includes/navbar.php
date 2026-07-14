@@ -2,6 +2,7 @@
 $currentPage = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
 $homeHref = 'index.php';
 $inventoryHref = 'inventory.php';
+$cartHref = 'cart.php';
 $performanceHref = 'inventory.php?filter=performance';
 $electricHref = 'inventory.php?filter=electric';
 $touringHref = 'index.php#grand-touring';
@@ -14,6 +15,7 @@ $signupHref = 'index.php#visit';
 $isLoggedIn = function_exists('is_logged_in') && is_logged_in();
 $isAdminUser = function_exists('is_admin') && is_admin();
 $cartAuthAttributes = $isLoggedIn ? '' : ' data-auth-trigger="cart" data-auth-label="cart"';
+$cartCount = function_exists('cart_item_count') ? cart_item_count() : 0;
 ?>
 
 <header class="site-header" data-header>
@@ -30,12 +32,12 @@ $cartAuthAttributes = $isLoggedIn ? '' : ' data-auth-trigger="cart" data-auth-la
                 href="<?= $aboutHref ?>">About Us</a>
         </nav>
         <div class="nav-actions">
-            <a class="nav-icon-link" href="<?= $inventoryHref ?>" aria-label="View cart"<?= $cartAuthAttributes ?>><svg aria-hidden="true"
+            <a class="nav-icon-link nav-cart-link" href="<?= $cartHref ?>" aria-label="View cart"<?= $cartAuthAttributes ?>><svg aria-hidden="true"
                     viewBox="0 0 24 24">
                     <circle cx="9" cy="20" r="1.5"></circle>
                     <circle cx="18" cy="20" r="1.5"></circle>
                     <path d="M3 4h2.5l2.1 10.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.7L21 8H7.1"></path>
-                </svg><span>Cart</span></a>
+                </svg><span>Cart</span><?php if ($isLoggedIn && $cartCount > 0): ?><span class="nav-cart-count" aria-hidden="true"><?= $cartCount ?></span><?php endif; ?></a>
             <?php if ($isLoggedIn && $isAdminUser): ?>
             <a class="signup-link" href="admin/dashboard.php">Dashboard</a>
             <?php endif; ?>

@@ -39,7 +39,7 @@ function is_admin(): bool
 
 function require_admin(): void
 {
-    if (is_admin()) {
+    if (is_admin() && (!function_exists('admin_access_is_enabled') || admin_access_is_enabled())) {
         return;
     }
 

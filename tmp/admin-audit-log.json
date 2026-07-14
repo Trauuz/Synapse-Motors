@@ -1,0 +1,1208 @@
+[
+    {
+        "id": "audit-06610e898a4d",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T21:20:43+00:00"
+    },
+    {
+        "id": "audit-8fb1b2c35908",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T21:20:37+00:00"
+    },
+    {
+        "id": "audit-daab6721c1e6",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:20:34+00:00"
+    },
+    {
+        "id": "audit-57c2b6305057",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T21:20:32+00:00"
+    },
+    {
+        "id": "audit-9898cc160cf7",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:20:32+00:00"
+    },
+    {
+        "id": "audit-f9bded62f10a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T21:20:30+00:00"
+    },
+    {
+        "id": "audit-dfec83038e59",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:19:01+00:00"
+    },
+    {
+        "id": "audit-2e6286a93e21",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:16:59+00:00"
+    },
+    {
+        "id": "audit-e22149c554dd",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Deleted inventory",
+        "summary": "Removed Northline E from the inventory.",
+        "occurred_at": "2026-07-14T21:16:59+00:00"
+    },
+    {
+        "id": "audit-d1de18df4242",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:16:57+00:00"
+    },
+    {
+        "id": "audit-81d49d5a91ad",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:16:55+00:00"
+    },
+    {
+        "id": "audit-4d16c6cf8703",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:16:44+00:00"
+    },
+    {
+        "id": "audit-d212d984f162",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:11:30+00:00"
+    },
+    {
+        "id": "audit-9b7a045ec097",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:11:30+00:00"
+    },
+    {
+        "id": "audit-5ecbc597c2ec",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:10:57+00:00"
+    },
+    {
+        "id": "audit-bc7143b02497",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Added inventory",
+        "summary": "Added Test to the inventory.",
+        "occurred_at": "2026-07-14T21:10:57+00:00"
+    },
+    {
+        "id": "audit-0a90d6139c4f",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:10:21+00:00"
+    },
+    {
+        "id": "audit-f76be6c48ce6",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:10:19+00:00"
+    },
+    {
+        "id": "audit-36f6ecf1a56b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:10:16+00:00"
+    },
+    {
+        "id": "audit-ed5e2db30f5a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:00:43+00:00"
+    },
+    {
+        "id": "audit-47868d7fee8b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T21:00:42+00:00"
+    },
+    {
+        "id": "audit-ab472aa6e83c",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T21:00:42+00:00"
+    },
+    {
+        "id": "audit-c19899de943d",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T21:00:26+00:00"
+    },
+    {
+        "id": "audit-e1a355066b7c",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T21:00:21+00:00"
+    },
+    {
+        "id": "audit-a50c1809f19a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T21:00:19+00:00"
+    },
+    {
+        "id": "audit-44e95a3845b2",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T21:00:16+00:00"
+    },
+    {
+        "id": "audit-70a6ac3b240e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T21:00:13+00:00"
+    },
+    {
+        "id": "audit-ed9ad4ec26c5",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:59:59+00:00"
+    },
+    {
+        "id": "audit-bb7744e13b02",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:57:33+00:00"
+    },
+    {
+        "id": "audit-938b7ccd1932",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:57:29+00:00"
+    },
+    {
+        "id": "audit-fc3af4aec29a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:55:20+00:00"
+    },
+    {
+        "id": "audit-790eb91650cd",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:55:16+00:00"
+    },
+    {
+        "id": "audit-049500eb012e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:55:01+00:00"
+    },
+    {
+        "id": "audit-dcdef0f51906",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:58+00:00"
+    },
+    {
+        "id": "audit-efd89839d8f1",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:54:57+00:00"
+    },
+    {
+        "id": "audit-1b191edb7bc3",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:54:53+00:00"
+    },
+    {
+        "id": "audit-bb4f78df1c4e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:54:52+00:00"
+    },
+    {
+        "id": "audit-4d16d03ed76d",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:54:52+00:00"
+    },
+    {
+        "id": "audit-c4eb823991bc",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:54:52+00:00"
+    },
+    {
+        "id": "audit-2aad0bc4ed1f",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:54:50+00:00"
+    },
+    {
+        "id": "audit-aa7f4f466ec6",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:49+00:00"
+    },
+    {
+        "id": "audit-8b5749e2545d",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:49+00:00"
+    },
+    {
+        "id": "audit-7d96402a3c7e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:49+00:00"
+    },
+    {
+        "id": "audit-3476aca44317",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:48+00:00"
+    },
+    {
+        "id": "audit-74592abdd31f",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:48+00:00"
+    },
+    {
+        "id": "audit-794247c21e2a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:41+00:00"
+    },
+    {
+        "id": "audit-4a1bf78237b6",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:54:26+00:00"
+    },
+    {
+        "id": "audit-62c5bcef0c10",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:54:23+00:00"
+    },
+    {
+        "id": "audit-7f5986c02014",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:54:19+00:00"
+    },
+    {
+        "id": "audit-6e216de0722b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:54:18+00:00"
+    },
+    {
+        "id": "audit-3326231e4005",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:54:15+00:00"
+    },
+    {
+        "id": "audit-733e5dc21d89",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:54:15+00:00"
+    },
+    {
+        "id": "audit-e4f8f1a83a76",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:53:07+00:00"
+    },
+    {
+        "id": "audit-a52cb672c03e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:51:27+00:00"
+    },
+    {
+        "id": "audit-d3628d75dfe4",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:47:39+00:00"
+    },
+    {
+        "id": "audit-90bc5b170768",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:47:38+00:00"
+    },
+    {
+        "id": "audit-2bc400fe1bb2",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:47:38+00:00"
+    },
+    {
+        "id": "audit-599e9517a6f6",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:47:35+00:00"
+    },
+    {
+        "id": "audit-24ac7a0c7734",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:47:16+00:00"
+    },
+    {
+        "id": "audit-5ef233686772",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:47:16+00:00"
+    },
+    {
+        "id": "audit-0a3394e00e7b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:38:46+00:00"
+    },
+    {
+        "id": "audit-84cd1c129fe9",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:38:45+00:00"
+    },
+    {
+        "id": "audit-c42197d396e3",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:38:41+00:00"
+    },
+    {
+        "id": "audit-131655d91838",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:37:47+00:00"
+    },
+    {
+        "id": "audit-63b530e2fe70",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:37:46+00:00"
+    },
+    {
+        "id": "audit-813453677fbb",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:37:45+00:00"
+    },
+    {
+        "id": "audit-fb1cce5907cc",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:37:45+00:00"
+    },
+    {
+        "id": "audit-41edb5a545b4",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:37:44+00:00"
+    },
+    {
+        "id": "audit-bd55f9e82bbf",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:37:42+00:00"
+    },
+    {
+        "id": "audit-731bf6487ff0",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:37:42+00:00"
+    },
+    {
+        "id": "audit-ee9a9175a5fb",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:37:41+00:00"
+    },
+    {
+        "id": "audit-309152082ea7",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:37:27+00:00"
+    },
+    {
+        "id": "audit-fc18ea3befe9",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:37:18+00:00"
+    },
+    {
+        "id": "audit-00ebb902c2f2",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:37:03+00:00"
+    },
+    {
+        "id": "audit-dfd00a64cbff",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:36:57+00:00"
+    },
+    {
+        "id": "audit-5cb26d8158bb",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:36:55+00:00"
+    },
+    {
+        "id": "audit-1f221a9a53c8",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:36:38+00:00"
+    },
+    {
+        "id": "audit-c6de39ba6646",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:36:35+00:00"
+    },
+    {
+        "id": "audit-74c5a8461de0",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:36:34+00:00"
+    },
+    {
+        "id": "audit-2150138fa8c9",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:36:34+00:00"
+    },
+    {
+        "id": "audit-5abdf3a0b3e9",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:36:34+00:00"
+    },
+    {
+        "id": "audit-246bacf4f39c",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:36:33+00:00"
+    },
+    {
+        "id": "audit-12273f4adfea",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:35:08+00:00"
+    },
+    {
+        "id": "audit-2b96c8bb5a04",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:14+00:00"
+    },
+    {
+        "id": "audit-0a7ca107b9a8",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:34:14+00:00"
+    },
+    {
+        "id": "audit-7bb4181d831b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:34:13+00:00"
+    },
+    {
+        "id": "audit-877955344909",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:34:12+00:00"
+    },
+    {
+        "id": "audit-bb007a20bb8a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:11+00:00"
+    },
+    {
+        "id": "audit-aa2e7926cc37",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:08+00:00"
+    },
+    {
+        "id": "audit-10260ab0e3e1",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:07+00:00"
+    },
+    {
+        "id": "audit-0584bb2bc3ae",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:06+00:00"
+    },
+    {
+        "id": "audit-1b8be49ea648",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:05+00:00"
+    },
+    {
+        "id": "audit-5051b195d705",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:34:05+00:00"
+    },
+    {
+        "id": "audit-7d6b3969bc0b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:39+00:00"
+    },
+    {
+        "id": "audit-cbd511b3bd78",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:31:38+00:00"
+    },
+    {
+        "id": "audit-f903182f2916",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:31:38+00:00"
+    },
+    {
+        "id": "audit-be4a0e227c19",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:31:38+00:00"
+    },
+    {
+        "id": "audit-d01874c13f70",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:37+00:00"
+    },
+    {
+        "id": "audit-37749f6db1db",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:31:36+00:00"
+    },
+    {
+        "id": "audit-422a1c772b1b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:31:36+00:00"
+    },
+    {
+        "id": "audit-5a80af4ab843",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:31:36+00:00"
+    },
+    {
+        "id": "audit-09ac3cfd9e30",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:35+00:00"
+    },
+    {
+        "id": "audit-afe19e8a37bb",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:31:34+00:00"
+    },
+    {
+        "id": "audit-55cb445de7b4",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:31:34+00:00"
+    },
+    {
+        "id": "audit-29160c50ca79",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:31:34+00:00"
+    },
+    {
+        "id": "audit-369a28d40e89",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:33+00:00"
+    },
+    {
+        "id": "audit-fc0e6559756c",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:31:28+00:00"
+    },
+    {
+        "id": "audit-9dcb83909ed9",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:31:21+00:00"
+    },
+    {
+        "id": "audit-0bd3808d12be",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:31:14+00:00"
+    },
+    {
+        "id": "audit-39c04c378b23",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:07+00:00"
+    },
+    {
+        "id": "audit-db7aff963dd3",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:07+00:00"
+    },
+    {
+        "id": "audit-f7078c3b7e32",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:07+00:00"
+    },
+    {
+        "id": "audit-dd7e8c02a8bf",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:07+00:00"
+    },
+    {
+        "id": "audit-ddf395e65d08",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:31:06+00:00"
+    },
+    {
+        "id": "audit-753e8d2e2b3b",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:27:50+00:00"
+    },
+    {
+        "id": "audit-9bed5eea707f",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:27:41+00:00"
+    },
+    {
+        "id": "audit-81e93b35ae35",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:27:39+00:00"
+    },
+    {
+        "id": "audit-d73dbb2244f4",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:27:39+00:00"
+    },
+    {
+        "id": "audit-368305ee9a30",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:27:38+00:00"
+    },
+    {
+        "id": "audit-1ce7ea1f2787",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:27:37+00:00"
+    },
+    {
+        "id": "audit-6cf1c7097d4e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:27:36+00:00"
+    },
+    {
+        "id": "audit-98658fb1bd41",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:27:35+00:00"
+    },
+    {
+        "id": "audit-d0b2ffb9d383",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:27:35+00:00"
+    },
+    {
+        "id": "audit-cef6dcb4e1a0",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:27:30+00:00"
+    },
+    {
+        "id": "audit-abc2ed148afd",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:10:18+00:00"
+    },
+    {
+        "id": "audit-e355ff7cbdfd",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:10:14+00:00"
+    },
+    {
+        "id": "audit-474400a392a0",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:09:50+00:00"
+    },
+    {
+        "id": "audit-109a174542b4",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:09:40+00:00"
+    },
+    {
+        "id": "audit-5eccb3df2e9e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed inventory counts and personal audit log.",
+        "occurred_at": "2026-07-14T20:09:37+00:00"
+    },
+    {
+        "id": "audit-47daad3d457e",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:09:36+00:00"
+    },
+    {
+        "id": "audit-80b5a5d0f6dd",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed admin users",
+        "summary": "Opened the administrator management page.",
+        "occurred_at": "2026-07-14T20:09:34+00:00"
+    },
+    {
+        "id": "audit-1d10b67516f2",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:09:33+00:00"
+    },
+    {
+        "id": "audit-21aae9e21aa7",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed inventory management",
+        "summary": "Opened the seller inventory management page.",
+        "occurred_at": "2026-07-14T20:09:29+00:00"
+    },
+    {
+        "id": "audit-3c590722c90a",
+        "actor_admin_id": "admin-b6b9322b270f",
+        "actor_name": "Tristan Carabbacan",
+        "actor_email": "tristancarabbacan06@gmail.com",
+        "action": "Viewed dashboard",
+        "summary": "Opened the seller dashboard.",
+        "occurred_at": "2026-07-14T20:09:22+00:00"
+    }
+]

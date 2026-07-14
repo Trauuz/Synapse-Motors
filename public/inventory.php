@@ -72,7 +72,7 @@
                         aria-label="Review <?= htmlspecialchars($vehicle['name']) ?>">
                         <img src="assets/images/<?= htmlspecialchars($vehicle['image']) ?>"
                             width="<?= $vehicle['width'] ?>" height="<?= $vehicle['height'] ?>" loading="lazy"
-                            alt="<?= htmlspecialchars($vehicle['alt']) ?>">
+                            alt="<?= htmlspecialchars($vehicle['alt']) ?>" draggable="false">
                     </a>
                     <div class="inventory-record-body">
                         <p class="inventory-record-kicker"><?= htmlspecialchars($vehicle['collection']) ?></p>
@@ -81,14 +81,6 @@
                                 <h3><?= htmlspecialchars($vehicle['name']) ?></h3>
                                 <p><?= $vehicle['detail'] ?></p>
                             </div>
-                            <button class="save-button" type="button" data-auth-trigger="save"
-                                data-auth-label="saved vehicles"
-                                aria-label="Save <?= htmlspecialchars($vehicle['name']) ?>" aria-pressed="false"
-                                data-save><svg aria-hidden="true" viewBox="0 0 24 24">
-                                    <path
-                                        d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z">
-                                    </path>
-                                </svg></button>
                         </div>
                         <dl class="inventory-specs">
                             <div>
@@ -109,8 +101,16 @@
                             </div>
                         </dl>
                         <div class="inventory-record-actions">
+                            <p class="inventory-record-price">
+                                <strong><?= htmlspecialchars(format_vehicle_price_php((int) $vehicle['price'])) ?></strong>
+                            </p>
                             <?php if (is_logged_in()): ?>
-                            <a class="browse-cars-link" href="#">Add to Cart</a>
+                            <form action="cart/add.php" method="post" class="inventory-cart-form">
+                                <input type="hidden" name="_csrf" value="<?= e(csrf_token()) ?>">
+                                <input type="hidden" name="vehicle_id" value="<?= e((string) $vehicle['id']) ?>">
+                                <input type="hidden" name="redirect_to" value="<?= e(current_request_path()) ?>">
+                                <button class="browse-cars-link" type="submit">Add to Cart</button>
+                            </form>
                             <?php else: ?>
                             <a class="browse-cars-link" href="#" data-auth-trigger="cart" data-auth-label="cart">Add
                                 to Cart</a>

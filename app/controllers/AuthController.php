@@ -151,7 +151,7 @@ final class AuthController
         }
 
         $basename = basename($path);
-        $allowed = ['index.php', 'inventory.php', 'about.php'];
+        $allowed = ['index.php', 'inventory.php', 'about.php', 'cart.php', 'checkout.php', 'payment.php'];
 
         if (!in_array($basename, $allowed, true)) {
             return 'index.php';

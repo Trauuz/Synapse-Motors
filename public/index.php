@@ -37,7 +37,7 @@
                 <p>New collection &middot; Coast road</p>
                 <h1 id="hero-title">Find your next drive.</h1>
                 <div class="hero-actions"><a class="button button-light" href="inventory.php">Explore inventory</a><a
-                        class="button button-ghost" href="#visit">Book a test drive</a></div>
+                        class="button button-ghost" href="#">Book a test drive</a></div>
             </div>
             <p class="hero-caption">Graphite coupe &middot; North coast, early light</p>
         </section>
@@ -104,6 +104,7 @@
     </main>
 
     <?php require __DIR__ . '/includes/footer.php'; ?>
+    <?php require __DIR__ . '/includes/order_complete_modal.php'; ?>
     <?php require __DIR__ . '/includes/auth_modal.php'; ?>
 
     <script>

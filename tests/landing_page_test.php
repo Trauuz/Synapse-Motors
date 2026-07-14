@@ -25,6 +25,7 @@ $expectations = [
     'test drive action' => 'Book a test drive',
     'navbar include' => "require __DIR__ . '/includes/navbar.php';",
     'footer include' => "require __DIR__ . '/includes/footer.php';",
+    'order complete modal include' => "require __DIR__ . '/includes/order_complete_modal.php';",
     'responsive image sizing' => 'width="1962" height="802"',
     'global stylesheet' => 'assets/css/global.css',
     'component stylesheet' => 'assets/css/components.css',

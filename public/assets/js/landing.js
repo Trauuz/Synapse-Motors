@@ -18,8 +18,11 @@
     const authAction = authModal?.querySelector('[data-auth-action]');
     const authRedirect = authModal?.querySelector('[data-auth-redirect]');
     const authForm = authModal?.querySelector('[data-auth-form]');
+    const pendingForms = document.querySelectorAll('[data-pending-form]');
     const authFormError = authModal?.querySelector('[data-auth-form-error]');
     const authEmailError = authModal?.querySelector('[data-auth-email-error]');
+    const orderCompleteModal = document.querySelector('[data-order-complete-modal]');
+    const orderCompleteCloseButtons = orderCompleteModal?.querySelectorAll('[data-order-complete-close]');
     const inventorySearchInput = document.querySelector('[data-inventory-search]');
     const inventoryFilterButtons = document.querySelectorAll('[data-filter]');
     const inventoryCards = document.querySelectorAll('[data-category]');
@@ -152,6 +155,18 @@
         lastAuthTrigger = null;
     };
 
+    const openOrderCompleteModal = () => {
+        if (!orderCompleteModal) return;
+        orderCompleteModal.hidden = false;
+        document.body.classList.add('auth-modal-open');
+    };
+
+    const closeOrderCompleteModal = () => {
+        if (!orderCompleteModal || orderCompleteModal.hidden) return;
+        orderCompleteModal.hidden = true;
+        document.body.classList.remove('auth-modal-open');
+    };
+
     const menuTrigger = document.querySelector('[data-menu-trigger]');
     const menuPanel = document.querySelector('[data-menu-panel]');
     const scrim = document.querySelector('[data-scrim]');
@@ -259,6 +274,22 @@
             authSubmit.textContent = originalLabel;
         }
     });
+    pendingForms.forEach((form) => {
+        form.addEventListener('submit', () => {
+            const submitButton = form.querySelector('[data-pending-button]');
+
+            if (!(submitButton instanceof HTMLButtonElement) || submitButton.disabled) {
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = submitButton.dataset.pendingLabel || 'Please wait...';
+        });
+    });
+    orderCompleteCloseButtons?.forEach((button) => button.addEventListener('click', closeOrderCompleteModal));
+    if (orderCompleteModal?.dataset.orderCompleteOpenOnLoad === 'true') {
+        openOrderCompleteModal();
+    }
     if (authModal?.dataset.authOpenOnLoad === 'true') {
         document.body.classList.add('auth-modal-open');
         setAuthModalMode(authModal.dataset.authMode || 'signin', 'signin', false);
@@ -267,6 +298,7 @@
     document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') return;
         if (mobileMenu && !mobileMenu.hidden) closeMobileMenu();
+        closeOrderCompleteModal();
         closeAuthModal();
         closeMegaMenu();
     });

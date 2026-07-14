@@ -1,0 +1,20 @@
+[
+    {
+        "id": "audit-218fa0a10a2e",
+        "actor_admin_id": "admin-6fb52c29e652",
+        "actor_name": "Lead Seller",
+        "actor_email": "lead@example.com",
+        "action": "Updated inventory",
+        "summary": "Adjusted Apex GT stock to 7 units.",
+        "occurred_at": "2026-07-14T21:16:29+00:00"
+    },
+    {
+        "id": "audit-dc8bd2c1c186",
+        "actor_admin_id": "admin-6fb52c29e652",
+        "actor_name": "Lead Seller",
+        "actor_email": "lead@example.com",
+        "action": "Viewed reports",
+        "summary": "Reviewed stock coverage and audit activity.",
+        "occurred_at": "2026-07-14T21:16:29+00:00"
+    }
+]

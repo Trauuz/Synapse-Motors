@@ -1,0 +1,1 @@
+auth_user|a:5:{s:2:"id";i:42;s:12:"auth_user_id";s:7:"user-42";s:5:"email";s:18:"driver@example.com";s:4:"name";s:11:"Test Driver";s:4:"role";s:5:"Buyer";}_csrf|s:64:"f946c56469622a1b8f7eef55c6032aef068cedf72e3bf1f7f6035085d7b2fe7a";
