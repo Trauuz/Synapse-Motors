@@ -2,8 +2,10 @@
 $homeHref = 'index.php';
 $inventoryHref = 'inventory.php';
 $journalHref = 'index.php#journal';
+$aboutHref = 'about.php';
 $supportHref = 'index.php#visit';
 ?>
+
 <footer class="site-footer">
     <div class="footer-main">
         <nav class="footer-column" aria-labelledby="footer-help-title">
@@ -30,16 +32,17 @@ $supportHref = 'index.php#visit';
         <nav class="footer-column" aria-labelledby="footer-help-title">
             <h2 id="footer-help-title" class="footer-heading">Help</h2>
             <ul class="footer-links">
-                <li><a href="<?= $journalHref ?>">About us</a></li>
+                <li><a href="<?= $aboutHref ?>">About us</a></li>
                 <li><a href="<?= $inventoryHref ?>">Track Order &amp; Return</a></li>
                 <li><a href="<?= $supportHref ?>">Ordering &amp; Payment</a></li>
                 <li><a href="<?= $supportHref ?>">Delivery</a></li>
                 <li><a href="<?= $supportHref ?>">Returns &amp; Refunds</a></li>
-                <li><a href="<?= $inventoryHref ?>">Size Guide</a></li>
                 <li><a href="<?= $journalHref ?>">Our Products</a></li>
             </ul>
         </nav>
     </div>
-    <div class="footer-meta"><span>@Disclaimer: for educational purposes only</span><span>&copy; <?= date('Y') ?>
+    <div class="footer-meta"><span>This website is for educational purposes only and is a requirement for a
+            final project.
+        </span><span>&copy; <?= date('Y') ?>
             Synapse Motors.</span></div>
 </footer>

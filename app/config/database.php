@@ -4,6 +4,80 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/env.php';
 
+function supabase_base_url(): string
+{
+    return rtrim((string) env('SUPABASE_URL', ''), '/');
+}
+
+function supabase_rest_url(): string
+{
+    $configured = trim((string) env('SUPABASE_REST_URL', ''));
+
+    if ($configured !== '') {
+        return rtrim($configured, '/');
+    }
+
+    $baseUrl = supabase_base_url();
+
+    if ($baseUrl === '') {
+        return '';
+    }
+
+    return $baseUrl . '/rest/v1';
+}
+
+function supabase_auth_url(): string
+{
+    $baseUrl = supabase_base_url();
+
+    if ($baseUrl === '') {
+        return '';
+    }
+
+    return $baseUrl . '/auth/v1';
+}
+
+function supabase_users_table(): string
+{
+    $table = trim((string) env('SUPABASE_USERS_TABLE', 'users'));
+
+    return $table !== '' ? $table : 'users';
+}
+
+function app_public_base_path(): string
+{
+    $scriptDirectory = str_replace('\\', '/', dirname((string) ($_SERVER['SCRIPT_NAME'] ?? '/')));
+    $basePath = preg_replace('#/(auth|admin|buyer|seller)$#', '', $scriptDirectory);
+
+    if (!is_string($basePath) || $basePath === '.' || $basePath === '/') {
+        return '';
+    }
+
+    return rtrim($basePath, '/');
+}
+
+function app_public_url(string $path = ''): string
+{
+    $configuredBaseUrl = trim((string) env('APP_URL', ''));
+
+    if ($configuredBaseUrl !== '') {
+        $baseUrl = rtrim($configuredBaseUrl, '/');
+        return $path === '' ? $baseUrl : $baseUrl . '/' . ltrim($path, '/');
+    }
+
+    $host = trim((string) ($_SERVER['HTTP_HOST'] ?? ''));
+
+    if ($host === '') {
+        return '';
+    }
+
+    $https = $_SERVER['HTTPS'] ?? '';
+    $scheme = ($https !== '' && $https !== 'off') ? 'https' : 'http';
+    $baseUrl = $scheme . '://' . $host . app_public_base_path();
+
+    return $path === '' ? $baseUrl : $baseUrl . '/' . ltrim($path, '/');
+}
+
 /**
  * Public values that are safe to expose to frontend JavaScript.
  *
@@ -12,7 +86,7 @@ require_once __DIR__ . '/env.php';
 function supabase_public_config(): array
 {
     return [
-        'url' => env('SUPABASE_URL', ''),
+        'url' => supabase_base_url(),
         'anonKey' => env('SUPABASE_ANON_KEY', ''),
     ];
 }
@@ -40,7 +114,7 @@ function supabase_service_headers(): array
  */
 function supabase_health_check(): array
 {
-    $url = rtrim(env('SUPABASE_URL', ''), '/');
+    $url = supabase_rest_url();
     $anonKey = env('SUPABASE_ANON_KEY', '');
     $serviceRoleKey = env('SUPABASE_SERVICE_ROLE_KEY', '');
 
@@ -68,7 +142,7 @@ function supabase_health_check(): array
         ],
     ]);
 
-    $responseBody = @file_get_contents($url . '/rest/v1/', false, $context);
+    $responseBody = @file_get_contents($url . '/', false, $context);
     $responseHeaders = $http_response_header ?? [];
     $statusLine = $responseHeaders[0] ?? '';
     $status = 0;

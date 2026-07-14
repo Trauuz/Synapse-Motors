@@ -12,9 +12,10 @@ if ($page === false) {
 
 $expectations = [
     'inventory page landmark' => '<main id="main-content" class="inventory-page">',
-    'inventory page heading' => 'Browse the full road-ready collection.',
-    'inventory page cta' => 'Start browsing',
+    'inventory page heading' => 'Choose the drive that fits the day.',
+    'inventory page cta' => 'Add to Cart',
     'inventory page filter' => 'data-filter="collector"',
+    'inventory page search' => 'data-inventory-search',
     'inventory page cards' => 'inventory-record',
     'vehicle helper include' => "require_once dirname(__DIR__) . '/app/helpers/vehicles.php';",
     'navbar include' => "require __DIR__ . '/includes/navbar.php';",

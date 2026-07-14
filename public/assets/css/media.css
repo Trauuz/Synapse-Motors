@@ -3,11 +3,23 @@
     .desktop-nav, .nav-actions > a { display: none; }
     .menu-toggle { display: inline-flex; align-items: center; gap: var(--space-sm); }
     .menu-lines { width: 1.1rem; height: .65rem; border-block: var(--rule-hair) solid currentColor; }
+    .inventory-topline { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); border-bottom: 0; }
+    .inventory-topline-link { justify-content: flex-start; }
+    .inventory-subnav { padding-inline: 0; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    .inventory-subnav::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    .inventory-header { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .inventory-featured-grid { grid-template-columns: minmax(0, 1fr); }
     .inventory-hero { grid-template-columns: minmax(0, 1fr); align-items: start; }
     .inventory-cards { grid-template-columns: minmax(0, 1fr); }
     .inventory-record { grid-template-columns: minmax(0, 1fr); }
     .vehicle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .vehicle-card:last-child { grid-column: 1 / -1; width: calc(50% - var(--space-xs)); }
+    .about-marquee { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .about-frame-caption { grid-template-columns: minmax(0, 1fr); }
+    .about-principles-grid { grid-template-columns: minmax(0, 1fr); }
+    .about-storyline { grid-template-columns: minmax(0, 1fr); }
+    .about-columns { grid-template-columns: minmax(0, 1fr); }
+    .about-columns-grid { grid-template-columns: minmax(0, 1fr); }
     .journal { grid-template-columns: minmax(0, 1fr); }
     .journal-image { min-height: 34rem; }
     .journal-copy { min-height: 28rem; }
@@ -23,6 +35,13 @@
     .brand-name { font-size: var(--text-body); }
     .site-footer .brand-logo { width: 2.75rem; height: 2.75rem; }
     .site-footer .brand-name { font-size: 1em; }
+    .inventory { padding-block: var(--space-3xl); }
+    .inventory-topline-link { padding-bottom: var(--space-sm); }
+    .inventory-subnav { gap: var(--space-lg); margin-top: var(--space-md); }
+    .inventory-feature-card { min-height: 32rem; }
+    .inventory-feature-copy { inset-inline: var(--space-md); bottom: var(--space-md); display: grid; justify-content: stretch; }
+    .inventory-feature-meta { justify-items: start; text-align: left; }
+    .news-strip { padding-bottom: var(--space-3xl); }
     .inventory-hero { padding-block: var(--space-3xl) var(--space-xl); }
     .inventory-hero-copy > p:last-child { font-size: var(--text-body); }
     .inventory-hero-panel { padding: var(--space-lg); }
@@ -43,11 +62,32 @@
     .section-heading { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; }
     .section-heading .text-link { justify-self: start; }
     .filter-row { gap: var(--space-lg); margin-top: var(--space-xl); }
+    .inventory-filter-row { top: calc(4rem - 1px); }
+    .inventory-filter-row { align-items: stretch; flex-direction: column; }
+    .inventory-filter-actions { width: 100%; gap: var(--space-lg); }
+    .inventory-search { width: 100%; flex-basis: auto; }
+    .auth-modal { max-height: min(88dvh, 42rem); }
+    .auth-modal-form { grid-template-columns: minmax(0, 1fr); }
+    .auth-callback-card { padding: var(--space-xl); }
+    .auth-callback-card h1 { max-width: 100%; font-size: clamp(2.6rem, 12vw, 4rem); }
     .vehicle-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
     .vehicle-card:last-child { grid-column: auto; width: auto; }
     .story-fold, .story-fold > img { min-height: 34rem; height: 72dvh; }
     .story-card { inset-inline: var(--space-md); bottom: var(--space-xl); }
     .story-card h2 { font-size: clamp(2.75rem, 14vw, 4.5rem); }
+    .about-marquee { padding-block: var(--space-3xl) var(--space-xl); }
+    .about-marquee-copy h1 { font-size: clamp(3.25rem, 15vw, 5.75rem); }
+    .about-intro { font-size: var(--text-body); }
+    .about-actions { align-items: stretch; }
+    .about-actions .button { flex: 1 1 100%; }
+    .about-frame { padding-bottom: var(--space-3xl); }
+    .about-frame-image { min-height: 20rem; }
+    .about-principles, .about-storyline, .about-columns { padding-bottom: var(--space-3xl); }
+    .about-principle-card, .about-column-card, .about-note { padding: var(--space-lg); }
+    .about-storyline-copy { padding: var(--space-lg); }
+    .about-storyline-image { min-height: 24rem; }
+    .about-storyline-copy h2, .about-columns h2 { max-width: 11ch; }
+    .about-visit-actions .button { width: 100%; }
     .journal-image { min-height: 24rem; }
     .journal-copy { min-height: 26rem; padding: var(--space-2xl) var(--space-md); }
     .visit { padding: var(--space-3xl) var(--space-md); grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }

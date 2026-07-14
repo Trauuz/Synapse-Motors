@@ -5,11 +5,15 @@ $inventoryHref = 'inventory.php';
 $performanceHref = 'inventory.php?filter=performance';
 $electricHref = 'inventory.php?filter=electric';
 $touringHref = 'index.php#grand-touring';
+$grandTouringHref = 'inventory.php?filter=touring';
 $cityHref = 'inventory.php?filter=city';
 $collectorHref = 'inventory.php?filter=collector';
 $journalHref = 'index.php#journal';
-$aboutHref = 'index.php#journal';
+$aboutHref = 'about.php';
 $signupHref = 'index.php#visit';
+$isLoggedIn = function_exists('is_logged_in') && is_logged_in();
+$isAdminUser = function_exists('is_admin') && is_admin();
+$cartAuthAttributes = $isLoggedIn ? '' : ' data-auth-trigger="cart" data-auth-label="cart"';
 ?>
 
 <header class="site-header" data-header>
@@ -26,13 +30,24 @@ $signupHref = 'index.php#visit';
                 href="<?= $aboutHref ?>">About Us</a>
         </nav>
         <div class="nav-actions">
-            <a class="nav-icon-link" href="<?= $inventoryHref ?>" aria-label="View cart"><svg aria-hidden="true"
+            <a class="nav-icon-link" href="<?= $inventoryHref ?>" aria-label="View cart"<?= $cartAuthAttributes ?>><svg aria-hidden="true"
                     viewBox="0 0 24 24">
                     <circle cx="9" cy="20" r="1.5"></circle>
                     <circle cx="18" cy="20" r="1.5"></circle>
                     <path d="M3 4h2.5l2.1 10.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.7L21 8H7.1"></path>
                 </svg><span>Cart</span></a>
-            <a class="signup-link" href="<?= $signupHref ?>">Sign Up</a>
+            <?php if ($isLoggedIn && $isAdminUser): ?>
+            <a class="signup-link" href="admin/dashboard.php">Dashboard</a>
+            <?php endif; ?>
+            <?php if ($isLoggedIn): ?>
+            <form action="auth/logout.php" method="post" class="nav-auth-form">
+                <input type="hidden" name="_csrf" value="<?= e(csrf_token()) ?>">
+                <button class="signup-link" type="submit">Sign Out</button>
+            </form>
+            <?php else: ?>
+            <a class="signup-link" href="<?= $signupHref ?>" data-auth-trigger="signin"
+                data-auth-label="account">Sign In</a>
+            <?php endif; ?>
             <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"
                 data-mobile-toggle><span>Menu</span><span class="menu-lines" aria-hidden="true"></span></button>
         </div>
@@ -50,7 +65,7 @@ $signupHref = 'index.php#visit';
                         torque</span></a>
             </div>
             <div>
-                <p class="mega-heading">Shop by intent</p><a href="<?= $touringHref ?>"><strong>Long
+                <p class="mega-heading">Shop by intent</p><a href="<?= $grandTouringHref ?>"><strong>Long
                         distance</strong><span>Grand tourers made to roam</span></a><a
                     href="<?= $cityHref ?>"><strong>City</strong><span>Compact, agile, effortless</span></a><a
                     href="<?= $collectorHref ?>"><strong>Collector</strong><span>Rare cars with provenance</span></a>
@@ -76,5 +91,6 @@ $signupHref = 'index.php#visit';
     </div>
     <nav aria-label="Mobile navigation"><a href="<?= $inventoryHref ?>">All vehicles</a><a
             href="<?= $electricHref ?>">Electric</a><a href="<?= $touringHref ?>">Grand touring</a><a
-            href="<?= $journalHref ?>">Journal</a><a href="<?= $signupHref ?>">Visit us</a></nav>
+            href="<?= $journalHref ?>">Journal</a><a href="<?= $aboutHref ?>">About us</a><a
+            href="<?= $signupHref ?>">Visit us</a></nav>
 </aside>

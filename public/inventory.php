@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
+<?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/helpers/vehicles.php'; ?>
 
 <head>
@@ -37,19 +38,36 @@
                 </div>
             </div>
 
-            <div class="filter-row inventory-filter-row" role="group" aria-label="Filter all vehicles">
-                <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-                <button class="filter" type="button" data-filter="performance" aria-pressed="false">Performance</button>
-                <button class="filter" type="button" data-filter="electric" aria-pressed="false">Electric</button>
-                <button class="filter" type="button" data-filter="suv" aria-pressed="false">SUV</button>
-                <button class="filter" type="button" data-filter="touring" aria-pressed="false">Grand touring</button>
-                <button class="filter" type="button" data-filter="city" aria-pressed="false">City</button>
-                <button class="filter" type="button" data-filter="collector" aria-pressed="false">Collector</button>
+            <div class="filter-row inventory-filter-row" aria-label="Filter all vehicles">
+                <div class="inventory-filter-actions" role="group" aria-label="Vehicle categories">
+                    <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+                    <button class="filter" type="button" data-filter="performance"
+                        aria-pressed="false">Performance</button>
+                    <button class="filter" type="button" data-filter="electric" aria-pressed="false">Electric</button>
+                    <button class="filter" type="button" data-filter="suv" aria-pressed="false">SUV</button>
+                    <button class="filter" type="button" data-filter="touring" aria-pressed="false">Grand
+                        touring</button>
+                    <button class="filter" type="button" data-filter="city" aria-pressed="false">City</button>
+                    <button class="filter" type="button" data-filter="collector" aria-pressed="false">Collector</button>
+                </div>
+                <label class="inventory-search" for="inventory-search">
+                    <input id="inventory-search" type="search" name="inventory_search"
+                        placeholder="Search by model, body, or powertrain" data-inventory-search>
+                </label>
             </div>
 
             <div class="inventory-cards" id="inventory-grid" aria-live="polite">
                 <?php foreach (synapse_vehicle_inventory() as $vehicle): ?>
-                <article class="inventory-record" data-category="<?= htmlspecialchars($vehicle['category']) ?>">
+                <article class="inventory-record" data-category="<?= htmlspecialchars($vehicle['category']) ?>"
+                    data-search="<?= htmlspecialchars(strtolower(implode(' ', [
+                        $vehicle['name'],
+                        $vehicle['collection'],
+                        strip_tags($vehicle['detail']),
+                        $vehicle['body'],
+                        $vehicle['powertrain'],
+                        $vehicle['drive'],
+                        $vehicle['availability'],
+                    ]))) ?>">
                     <a class="inventory-record-media" href="#inventory-grid"
                         aria-label="Review <?= htmlspecialchars($vehicle['name']) ?>">
                         <img src="assets/images/<?= htmlspecialchars($vehicle['image']) ?>"
@@ -63,7 +81,8 @@
                                 <h3><?= htmlspecialchars($vehicle['name']) ?></h3>
                                 <p><?= $vehicle['detail'] ?></p>
                             </div>
-                            <button class="save-button" type="button"
+                            <button class="save-button" type="button" data-auth-trigger="save"
+                                data-auth-label="saved vehicles"
                                 aria-label="Save <?= htmlspecialchars($vehicle['name']) ?>" aria-pressed="false"
                                 data-save><svg aria-hidden="true" viewBox="0 0 24 24">
                                     <path
@@ -90,7 +109,12 @@
                             </div>
                         </dl>
                         <div class="inventory-record-actions">
-                            <a class="browse-cars-link" href="index.php#visit">Request a walkthrough</a>
+                            <?php if (is_logged_in()): ?>
+                            <a class="browse-cars-link" href="#">Add to Cart</a>
+                            <?php else: ?>
+                            <a class="browse-cars-link" href="#" data-auth-trigger="cart" data-auth-label="cart">Add
+                                to Cart</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </article>
@@ -100,6 +124,7 @@
     </main>
 
     <?php require __DIR__ . '/includes/footer.php'; ?>
+    <?php require __DIR__ . '/includes/auth_modal.php'; ?>
 
     <script>
     window.SUPABASE_CONFIG = <?= json_encode(supabase_public_config(), JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) ?>;
