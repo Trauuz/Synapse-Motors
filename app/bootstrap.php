@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+if (ob_get_level() === 0) {
+    ob_start();
+}
+
 require_once __DIR__ . '/helpers/session.php';
 app_start_session();
 

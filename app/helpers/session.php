@@ -8,10 +8,6 @@ function app_start_session(): void
         return;
     }
 
-    if (headers_sent()) {
-        return;
-    }
-
     $currentSavePath = (string) ini_get('session.save_path');
 
     if ($currentSavePath === '' || !is_dir($currentSavePath) || !is_writable($currentSavePath)) {
