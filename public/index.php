@@ -1,6 +1,6 @@
+<?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 
 <head>
     <meta charset="utf-8">
