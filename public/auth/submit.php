@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/app/bootstrap.php';
 
 $controller = new AuthController(
     new AuthService(
-        new SupabaseClient(),
+        user_repository(),
         new AuthValidator(),
         new LoginRedirectResolver(),
     )

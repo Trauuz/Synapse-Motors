@@ -66,17 +66,6 @@ function auth_form_state(): array
     return $state;
 }
 
-function has_auth_feedback(): bool
-{
-    $state = auth_form_state();
-
-    if (($state['message'] ?? null) !== null) {
-        return true;
-    }
-
-    return ($state['errors'] ?? []) !== [];
-}
-
 function current_request_path(): string
 {
     $requestUri = $_SERVER['REQUEST_URI'] ?? '/index.php';

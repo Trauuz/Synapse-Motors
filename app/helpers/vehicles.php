@@ -13,24 +13,6 @@ function inventory_catalog_data_path(): string
     return dirname(__DIR__, 2) . '/tmp/inventory-catalog.json';
 }
 
-/**
- * @param array<int, array<string, mixed>> $inventory
- */
-function save_inventory_catalog(array $inventory): void
-{
-    $filePath = inventory_catalog_data_path();
-    $directory = dirname($filePath);
-
-    if (!is_dir($directory)) {
-        mkdir($directory, 0777, true);
-    }
-
-    file_put_contents($filePath, json_encode(array_values($inventory), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
-}
-
-/**
- * @return array<int, array<string, mixed>>|null
- */
 function load_inventory_catalog(): ?array
 {
     $filePath = inventory_catalog_data_path();
@@ -48,6 +30,14 @@ function load_inventory_catalog(): ?array
     $decoded = json_decode($contents, true);
 
     return is_array($decoded) ? array_values(array_filter($decoded, 'is_array')) : null;
+}
+
+/**
+ * @param array<int, array<string, mixed>> $inventory
+ */
+function sync_inventory_catalog(array $inventory): void
+{
+    vehicle_repository()->replaceCatalog($inventory);
 }
 
 function vehicle_price_in_php(int $priceInUsd): int
@@ -110,6 +100,31 @@ function next_inventory_vehicle_id(array $inventory, string $name): string
     return $baseId . '-' . $suffix;
 }
 
+function ensure_inventory_catalog_seeded(): void
+{
+    static $isSeeded = false;
+
+    if ($isSeeded) {
+        return;
+    }
+
+    if (vehicle_repository()->countAll() > 0) {
+        $isSeeded = true;
+        return;
+    }
+
+    $legacyInventory = load_inventory_catalog();
+
+    if (is_array($legacyInventory) && $legacyInventory !== []) {
+        sync_inventory_catalog($legacyInventory);
+        $isSeeded = true;
+        return;
+    }
+
+    sync_inventory_catalog(default_synapse_vehicle_inventory());
+    $isSeeded = true;
+}
+
 /**
  * @return array{body: string, powertrain: string}
  */
@@ -144,15 +159,9 @@ function inventory_category_from_vehicle_data(string $name, string $detail, stri
  */
 function find_vehicle_by_id(string $vehicleId): ?array
 {
-    foreach (synapse_vehicle_inventory() as $vehicle) {
-        if (($vehicle['id'] ?? null) !== $vehicleId) {
-            continue;
-        }
+    ensure_inventory_catalog_seeded();
 
-        return $vehicle;
-    }
-
-    return null;
+    return vehicle_repository()->findById($vehicleId);
 }
 
 /**
@@ -167,10 +176,10 @@ function default_synapse_vehicle_inventory(): array
             'detail' => 'Performance coupe - Petrol',
             'price' => 128000,
             'category' => 'performance touring',
-            'image' => 'hero-coast.png',
-            'width' => 1962,
-            'height' => 802,
-            'alt' => 'Graphite performance coupe on a coastal overlook',
+            'image' => 'inventory-apex-gt.png',
+            'width' => 1672,
+            'height' => 941,
+            'alt' => 'Graphite black performance coupe on a coastal overlook at dusk',
             'body' => 'Coupe',
             'powertrain' => 'Petrol',
             'drive' => 'Rear-wheel drive',
@@ -184,10 +193,10 @@ function default_synapse_vehicle_inventory(): array
             'detail' => 'Grand touring coupe - Petrol',
             'price' => 142500,
             'category' => 'performance touring',
-            'image' => 'tunnel-gt.png',
-            'width' => 1796,
-            'height' => 876,
-            'alt' => 'Oxblood grand touring coupe driving through a concrete tunnel',
+            'image' => 'inventory-vela-r.png',
+            'width' => 1672,
+            'height' => 941,
+            'alt' => 'Oxblood grand touring coupe on a coastal overlook at dusk',
             'body' => 'Grand touring',
             'powertrain' => 'Petrol',
             'drive' => 'All-wheel drive',
@@ -201,10 +210,10 @@ function default_synapse_vehicle_inventory(): array
             'detail' => 'SUV - Electric',
             'price' => 96500,
             'category' => 'electric suv',
-            'image' => 'alpine-suv.png',
-            'width' => 1536,
-            'height' => 1024,
-            'alt' => 'Silver electric SUV parked beside a lakeside cabin',
+            'image' => 'inventory-northline-e.png',
+            'width' => 1672,
+            'height' => 941,
+            'alt' => 'Pearl white electric SUV on a coastal overlook at dusk',
             'body' => 'SUV',
             'powertrain' => 'Electric',
             'drive' => 'Dual-motor AWD',
@@ -218,10 +227,10 @@ function default_synapse_vehicle_inventory(): array
             'detail' => 'City crossover - Electric',
             'price' => 68400,
             'category' => 'electric city suv',
-            'image' => 'alpine-suv.png',
-            'width' => 1536,
-            'height' => 1024,
-            'alt' => 'Silver electric SUV parked beside a lakeside cabin',
+            'image' => 'inventory-harbor-s.png',
+            'width' => 1672,
+            'height' => 941,
+            'alt' => 'Silver electric city crossover on a coastal overlook at dusk',
             'body' => 'Crossover',
             'powertrain' => 'Electric',
             'drive' => 'Rear-wheel drive',
@@ -235,10 +244,10 @@ function default_synapse_vehicle_inventory(): array
             'detail' => 'Touring sedan - Petrol',
             'price' => 88400,
             'category' => 'touring city',
-            'image' => 'tunnel-gt.png',
-            'width' => 1796,
-            'height' => 876,
-            'alt' => 'Oxblood grand touring coupe driving through a concrete tunnel',
+            'image' => 'inventory-monarch-t.png',
+            'width' => 1672,
+            'height' => 941,
+            'alt' => 'Deep navy touring sedan on a coastal overlook at dusk',
             'body' => 'Sedan',
             'powertrain' => 'Petrol',
             'drive' => 'Front-engine touring',
@@ -252,10 +261,10 @@ function default_synapse_vehicle_inventory(): array
             'detail' => 'Track coupe - Petrol',
             'price' => 171900,
             'category' => 'performance collector',
-            'image' => 'hero-coast.png',
-            'width' => 1962,
-            'height' => 802,
-            'alt' => 'Graphite performance coupe on a coastal overlook',
+            'image' => 'inventory-cinder-rs.png',
+            'width' => 1672,
+            'height' => 941,
+            'alt' => 'Charcoal track-focused coupe on a coastal overlook at dusk',
             'body' => 'Coupe',
             'powertrain' => 'Petrol',
             'drive' => 'Rear-wheel drive',
@@ -268,13 +277,9 @@ function default_synapse_vehicle_inventory(): array
 
 function synapse_vehicle_inventory(): array
 {
-    $storedInventory = load_inventory_catalog();
+    ensure_inventory_catalog_seeded();
 
-    if (is_array($storedInventory)) {
-        return $storedInventory;
-    }
-
-    return default_synapse_vehicle_inventory();
+    return vehicle_repository()->all();
 }
 
 /**
@@ -315,10 +320,7 @@ function create_inventory_vehicle(array $vehicleData): ?array
         'stock_quantity' => $stockQuantity,
     ];
 
-    $inventory[] = $vehicle;
-    save_inventory_catalog($inventory);
-
-    return $vehicle;
+    return vehicle_repository()->create($vehicle);
 }
 
 /**
@@ -327,48 +329,43 @@ function create_inventory_vehicle(array $vehicleData): ?array
  */
 function update_inventory_vehicle(string $vehicleId, array $changes): ?array
 {
-    $inventory = synapse_vehicle_inventory();
+    $vehicle = find_vehicle_by_id($vehicleId);
 
-    foreach ($inventory as $index => $vehicle) {
-        if (($vehicle['id'] ?? null) !== $vehicleId) {
-            continue;
-        }
-
-        $nextName = trim((string) ($changes['name'] ?? $vehicle['name'] ?? ''));
-        $nextDetail = trim((string) ($changes['detail'] ?? $vehicle['detail'] ?? ''));
-        $nextCollection = trim((string) ($changes['collection'] ?? $vehicle['collection'] ?? ''));
-        $nextPrice = max(0, (int) ($changes['price'] ?? $vehicle['price'] ?? 0));
-        $nextStockQuantity = max(0, (int) ($changes['stock_quantity'] ?? $vehicle['stock_quantity'] ?? 0));
-        $nextAvailability = trim((string) ($changes['availability'] ?? $vehicle['availability'] ?? ''));
-        $specs = inventory_specs_from_detail($nextDetail);
-
-        if ($nextName === '' || $nextDetail === '') {
-            return null;
-        }
-
-        $inventory[$index]['name'] = $nextName;
-        $inventory[$index]['detail'] = $nextDetail;
-        $inventory[$index]['collection'] = $nextCollection === '' ? (string) ($vehicle['collection'] ?? 'New arrivals') : $nextCollection;
-        $inventory[$index]['price'] = $nextPrice;
-        $inventory[$index]['stock_quantity'] = $nextStockQuantity;
-        $inventory[$index]['availability'] = $nextAvailability === '' ? (string) ($vehicle['availability'] ?? 'Available now') : $nextAvailability;
-        $inventory[$index]['body'] = $specs['body'];
-        $inventory[$index]['powertrain'] = $specs['powertrain'];
-        $inventory[$index]['category'] = inventory_category_from_vehicle_data(
-            $nextName,
-            $nextDetail,
-            (string) $inventory[$index]['collection'],
-            $specs['body'],
-            $specs['powertrain']
-        );
-        $inventory[$index]['alt'] = $nextName . ' vehicle listing image';
-
-        save_inventory_catalog($inventory);
-
-        return $inventory[$index];
+    if (!is_array($vehicle)) {
+        return null;
     }
 
-    return null;
+    $nextName = trim((string) ($changes['name'] ?? $vehicle['name'] ?? ''));
+    $nextDetail = trim((string) ($changes['detail'] ?? $vehicle['detail'] ?? ''));
+    $nextCollection = trim((string) ($changes['collection'] ?? $vehicle['collection'] ?? ''));
+    $nextPrice = max(0, (int) ($changes['price'] ?? $vehicle['price'] ?? 0));
+    $nextStockQuantity = max(0, (int) ($changes['stock_quantity'] ?? $vehicle['stock_quantity'] ?? 0));
+    $nextAvailability = trim((string) ($changes['availability'] ?? $vehicle['availability'] ?? ''));
+    $specs = inventory_specs_from_detail($nextDetail);
+    $resolvedCollection = $nextCollection === '' ? (string) ($vehicle['collection'] ?? 'New arrivals') : $nextCollection;
+
+    if ($nextName === '' || $nextDetail === '') {
+        return null;
+    }
+
+    return vehicle_repository()->update($vehicleId, [
+        'name' => $nextName,
+        'detail' => $nextDetail,
+        'collection' => $resolvedCollection,
+        'price' => $nextPrice,
+        'stock_quantity' => $nextStockQuantity,
+        'availability' => $nextAvailability === '' ? (string) ($vehicle['availability'] ?? 'Available now') : $nextAvailability,
+        'body' => $specs['body'],
+        'powertrain' => $specs['powertrain'],
+        'category' => inventory_category_from_vehicle_data(
+            $nextName,
+            $nextDetail,
+            $resolvedCollection,
+            $specs['body'],
+            $specs['powertrain']
+        ),
+        'alt' => $nextName . ' vehicle listing image',
+    ]);
 }
 
 /**
@@ -376,19 +373,7 @@ function update_inventory_vehicle(string $vehicleId, array $changes): ?array
  */
 function delete_inventory_vehicle(string $vehicleId): ?array
 {
-    $inventory = synapse_vehicle_inventory();
+    ensure_inventory_catalog_seeded();
 
-    foreach ($inventory as $index => $vehicle) {
-        if (($vehicle['id'] ?? null) !== $vehicleId) {
-            continue;
-        }
-
-        $deletedVehicle = $vehicle;
-        unset($inventory[$index]);
-        save_inventory_catalog(array_values($inventory));
-
-        return $deletedVehicle;
-    }
-
-    return null;
+    return vehicle_repository()->delete($vehicleId);
 }

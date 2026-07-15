@@ -23,8 +23,11 @@ try {
         }
 
         $invitedAdmin = invite_admin_user($name, $email);
+        $currentAdmin = current_admin_account();
+        $inviterName = is_array($currentAdmin) ? (string) ($currentAdmin['name'] ?? 'Synapse Motors administrator') : 'Synapse Motors administrator';
+        admin_invitation_service()->sendForAdmin($invitedAdmin, $inviterName);
         record_admin_activity('Invited administrator', 'Invited ' . (string) ($invitedAdmin['email'] ?? $email) . ' to seller access.');
-        flash_set('admin_feedback', ['tone' => 'success', 'message' => 'Administrator invite saved.']);
+        flash_set('admin_feedback', ['tone' => 'success', 'message' => 'Administrator invite saved and email sent.']);
         header('Location: ../admins.php');
         exit;
     }

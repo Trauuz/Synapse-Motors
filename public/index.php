@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
-<?php require_once dirname(__DIR__) . '/app/helpers/vehicles.php'; ?>
 
 <head>
     <meta charset="utf-8">
@@ -90,7 +88,7 @@
         </section>
 
         <section class="journal" id="journal" aria-labelledby="journal-title">
-            <div class="journal-image"><img src="assets/images/alpine-suv.png" width="1536" height="1024" loading="lazy"
+            <div class="journal-image"><img src="assets/images/alpine-suv.png" width="1536" height="802" loading="lazy"
                     alt="Silver electric SUV at a quiet alpine lake"></div>
             <div class="journal-copy">
                 <p class="section-kicker">From the journal</p>
@@ -107,9 +105,6 @@
     <?php require __DIR__ . '/includes/order_complete_modal.php'; ?>
     <?php require __DIR__ . '/includes/auth_modal.php'; ?>
 
-    <script>
-    window.SUPABASE_CONFIG = <?= json_encode(supabase_public_config(), JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) ?>;
-    </script>
     <script src="assets/js/landing.js" defer></script>
 </body>
 

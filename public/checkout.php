@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 
 <?php
@@ -58,6 +57,13 @@ $notes = trim((string) ($checkoutOld['notes'] ?? ''));
 
     <main id="main-content" class="checkout-page">
         <section class="checkout-shell" aria-labelledby="checkout-title">
+            <header class="section-heading">
+                <div>
+                    <p class="section-kicker">Checkout</p>
+                    <h1 id="checkout-title">Confirm the details and move to payment.</h1>
+                </div>
+                <a class="text-link" href="payment.php">Preview payment step <span aria-hidden="true">&rarr;</span></a>
+            </header>
             <div class="checkout-grid">
                 <form action="checkout/submit.php" method="post" class="checkout-form-shell" novalidate>
                     <input type="hidden" name="_csrf" value="<?= e(csrf_token()) ?>">

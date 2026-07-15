@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 
 <?php
@@ -85,6 +84,7 @@ $totalPhp = is_array($draft) ? (int) ($draft['total_php'] ?? 0) : 0;
                         <div class="checkout-section-head">
                             <p class="section-kicker">Simulation mode</p>
                             <h2 id="payment-method-title">Payment Method</h2>
+                            <p class="checkout-option-copy">This is a guided payment simulation for the Synapse Motors checkout journey.</p>
                             <p class="checkout-option-copy"><small>No actual payments will be made</small></p>
                         </div>
                         <?php if (($paymentErrors['form'] ?? null) !== null): ?>

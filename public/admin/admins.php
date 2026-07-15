@@ -12,8 +12,8 @@ $currentAdmin = current_admin_account();
 $currentAdminId = is_array($currentAdmin) ? (string) ($currentAdmin['id'] ?? '') : '';
 $currentAdminDisplayName = trim((string) ($currentAdmin['name'] ?? 'Admin'));
 $currentAdminFirstName = $currentAdminDisplayName === '' ? 'Admin' : explode(' ', $currentAdminDisplayName)[0];
-$activeAdminCount = count(array_filter($admins, static fn(array $admin): bool => ($admin['access_status'] ?? '') === 'active'));
-$pendingAdminCount = count(array_filter($admins, static fn(array $admin): bool => ($admin['email_verified'] ?? false) !== true));
+$activeAdminCount = active_admin_user_count();
+$pendingAdminCount = pending_admin_user_count();
 ?>
 
 <head>
@@ -78,7 +78,7 @@ $pendingAdminCount = count(array_filter($admins, static fn(array $admin): bool =
                     <article class="admin-stat-card admin-stat-card-a">
                         <div>
                             <p class="admin-stat-label">Admin users</p>
-                            <h2><?= count($admins) ?></h2>
+                            <h2><?= admin_user_count() ?></h2>
                         </div>
                     </article>
                     <article class="admin-stat-card admin-stat-card-b">

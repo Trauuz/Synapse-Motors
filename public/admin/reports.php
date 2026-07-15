@@ -7,12 +7,24 @@ require_admin();
 record_admin_activity('Viewed reports', 'Reviewed inventory counts and personal audit log.');
 
 $inventory = synapse_vehicle_inventory();
-$auditEntries = current_admin_audit_log();
+$requestedAuditPage = filter_input(INPUT_GET, 'audit_page', FILTER_VALIDATE_INT);
+
+if (!is_int($requestedAuditPage) || $requestedAuditPage < 1) {
+    $requestedAuditPage = isset($_GET['audit_page']) ? (int) $_GET['audit_page'] : 1;
+}
+
+$auditLogPage = current_admin_audit_log_page($requestedAuditPage, 10);
+$auditEntries = $auditLogPage['entries'];
 $sortedInventory = $inventory;
 usort($sortedInventory, static fn(array $left, array $right): int => ((int) ($left['stock_quantity'] ?? 0)) <=> ((int) ($right['stock_quantity'] ?? 0)));
 $currentAdmin = current_admin_account();
 $totalUnits = array_sum(array_map(static fn(array $vehicle): int => (int) ($vehicle['stock_quantity'] ?? 0), $inventory));
 $lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool => (int) ($vehicle['stock_quantity'] ?? 0) <= 2));
+$auditEntryCount = (int) ($auditLogPage['total_entries'] ?? 0);
+$auditPageCount = (int) ($auditLogPage['total_pages'] ?? 1);
+$currentAuditPage = (int) ($auditLogPage['current_page'] ?? 1);
+$previousAuditPage = max(1, $currentAuditPage - 1);
+$nextAuditPage = min($auditPageCount, $currentAuditPage + 1);
 ?>
 
 <head>
@@ -85,7 +97,7 @@ $lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool 
                     <article class="admin-stat-card admin-stat-card-c">
                         <div>
                             <p class="admin-stat-label">Audit entries</p>
-                            <h2><?= count($auditEntries) ?></h2>
+                            <h2><?= $auditEntryCount ?></h2>
                         </div>
                     </article>
                     <article class="admin-stat-card admin-stat-card-d">
@@ -96,7 +108,7 @@ $lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool 
                     </article>
                 </section>
 
-                <section class="admin-dashboard-grid">
+                <section class="admin-dashboard-grid admin-dashboard-grid-stack">
                     <article class="admin-panel admin-panel-table">
                         <div class="admin-panel-head">
                             <div>
@@ -138,8 +150,9 @@ $lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool 
                         <div class="admin-panel-head">
                             <div>
                                 <h2>Audit log</h2>
-                                <p>Every recorded seller action for the current account.</p>
+                                <p>Every recorded seller action for the current account, shown 10 activity items at a time.</p>
                             </div>
+                            <span class="admin-panel-meta">Page <?= $currentAuditPage ?> of <?= $auditPageCount ?></span>
                         </div>
                         <div class="admin-activity-list">
                             <?php if ($auditEntries === []): ?>
@@ -161,6 +174,29 @@ $lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool 
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php if ($auditPageCount > 1): ?>
+                        <nav class="admin-pagination" aria-label="Audit log pagination">
+                            <?php if ((bool) ($auditLogPage['has_previous_page'] ?? false)): ?>
+                            <a class="admin-pagination-link" href="?audit_page=<?= $previousAuditPage ?>">Previous</a>
+                            <?php else: ?>
+                            <span class="admin-pagination-link is-disabled" aria-disabled="true">Previous</span>
+                            <?php endif; ?>
+                            <div class="admin-pagination-pages" aria-label="Audit log pages">
+                                <?php for ($pageNumber = 1; $pageNumber <= $auditPageCount; $pageNumber++): ?>
+                                <?php if ($pageNumber === $currentAuditPage): ?>
+                                <span class="admin-pagination-link is-current" aria-current="page"><?= $pageNumber ?></span>
+                                <?php else: ?>
+                                <a class="admin-pagination-link" href="?audit_page=<?= $pageNumber ?>"><?= $pageNumber ?></a>
+                                <?php endif; ?>
+                                <?php endfor; ?>
+                            </div>
+                            <?php if ((bool) ($auditLogPage['has_next_page'] ?? false)): ?>
+                            <a class="admin-pagination-link" href="?audit_page=<?= $nextAuditPage ?>">Next</a>
+                            <?php else: ?>
+                            <span class="admin-pagination-link is-disabled" aria-disabled="true">Next</span>
+                            <?php endif; ?>
+                        </nav>
+                        <?php endif; ?>
                     </article>
                 </section>
             </div>

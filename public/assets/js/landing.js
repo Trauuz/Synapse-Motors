@@ -314,13 +314,4 @@
 
     const requestedFilter = new URLSearchParams(window.location.search).get('filter');
     if (requestedFilter) applyFilter(requestedFilter);
-
-    document.querySelectorAll('[data-save]').forEach((button) => {
-        button.addEventListener('click', () => {
-            if (button.dataset.authTrigger === 'save') return;
-            const saved = button.getAttribute('aria-pressed') !== 'true';
-            button.setAttribute('aria-pressed', String(saved));
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace(saved ? 'Save' : 'Saved', saved ? 'Saved' : 'Save'));
-        });
-    });
 })();

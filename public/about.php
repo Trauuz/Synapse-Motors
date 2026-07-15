@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 
 <head>
@@ -28,19 +27,51 @@
     <?php require __DIR__ . '/includes/navbar.php'; ?>
 
     <main id="main-content" class="about-page">
-        <section class="about-marquee" aria-labelledby="about-title">
-            <div class="about-marquee-copy">
+        <section class="journal" aria-labelledby="journal-title">
+            <div class="journal-image"><img src="assets/images/company-building.png" width="1536" height="802"
+                    loading="lazy" alt="Company building"></div>
+            <div class="journal-copy">
                 <p class="section-kicker">About Synapse Motors</p>
-                <h1 id="about-title">We source cars for people who still notice the long way home.</h1>
-                <p class="about-intro">Synapse Motors is a small-format automotive house built around edited choice,
-                    provenance, and the feeling that a good drive should slow your pulse before it raises it.</p>
-                <p>From first sighting to final handover, we keep the process legible.</p>
-                <div class="about-actions">
-                    <a class="button button-dark" href="inventory.php">Browse the collection</a>
-                    <a class="text-link" href="index.php#visit">Plan a visit <span aria-hidden="true">&rarr;</span></a>
-                </div>
+                <h2>We source cars for people</h2>
+                <p>Synapse Motors is a made-up company that sells vehicles, offering a wide range of
+                    quality cars at competitive prices while providing reliable and customer-oriented automotive
+                    services.
+                </p>
+                <a class="button button-dark" href="inventory.php">Browse the collection</a>
             </div>
         </section>
+
+        <section class="about-member" aria-labelledby="about-member-title">
+            <figure class="about-member-portrait">
+                <img src="assets/images/carabbacan.jpg" width="1024" height="1024" loading="lazy"
+                    alt="Portrait of the Synapse Motors founder">
+            </figure>
+
+            <div class="about-member-copy">
+                <p class="section-kicker">Member profile</p>
+                <h2 id="about-member-title">Built and run by one focused operator.</h2>
+                <p>
+                    Synapse Motors is currently shaped by a single member handling the curation, storefront, and
+                    customer experience end to end. That smaller scale keeps the collection selective and the
+                    presentation deliberate.
+                </p>
+                <p>
+                    Every page choice, listing detail, and support touchpoint is meant to feel considered rather than
+                    mass-produced, which is why the brand reads more like a studio than a dealership floor.
+                </p>
+                <dl class="about-member-meta">
+                    <div>
+                        <dt>Role</dt>
+                        <dd>Founder and sole member</dd>
+                    </div>
+                    <div>
+                        <dt>Focus</dt>
+                        <dd>Selection, design, and customer flow</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
 
     </main>
 

@@ -2,26 +2,6 @@
 
 declare(strict_types=1);
 
-const CART_SESSION_KEY = 'cart_items';
-
-/**
- * @return array<string, array<string, int>>
- */
-function cart_store(): array
-{
-    $store = $_SESSION[CART_SESSION_KEY] ?? [];
-
-    return is_array($store) ? $store : [];
-}
-
-/**
- * @param array<string, array<string, int>> $store
- */
-function save_cart_store(array $store): void
-{
-    $_SESSION[CART_SESSION_KEY] = $store;
-}
-
 function current_cart_owner_key(): ?string
 {
     $user = current_user();
@@ -30,16 +10,10 @@ function current_cart_owner_key(): ?string
         return null;
     }
 
-    $authUserId = $user['auth_user_id'] ?? null;
+    $userId = $user['id'] ?? $user['auth_user_id'] ?? null;
 
-    if (is_string($authUserId) && $authUserId !== '') {
-        return $authUserId;
-    }
-
-    $email = $user['email'] ?? null;
-
-    if (is_string($email) && $email !== '') {
-        return strtolower($email);
+    if (is_string($userId) && $userId !== '') {
+        return $userId;
     }
 
     return null;
@@ -56,10 +30,7 @@ function current_cart_quantities(): array
         return [];
     }
 
-    $store = cart_store();
-    $quantities = $store[$ownerKey] ?? [];
-
-    return is_array($quantities) ? $quantities : [];
+    return cart_repository()->quantitiesForUser($ownerKey);
 }
 
 function cart_item_count(): int
@@ -84,16 +55,8 @@ function add_vehicle_to_cart(string $vehicleId, int $quantity = 1): bool
         return false;
     }
 
-    $store = cart_store();
-    $ownerCart = $store[$ownerKey] ?? [];
-
-    if (!is_array($ownerCart)) {
-        $ownerCart = [];
-    }
-
-    $ownerCart[$vehicleId] = max(0, (int) ($ownerCart[$vehicleId] ?? 0)) + $quantity;
-    $store[$ownerKey] = $ownerCart;
-    save_cart_store($store);
+    $currentQuantity = (int) (current_cart_quantities()[$vehicleId] ?? 0);
+    cart_repository()->setQuantity($ownerKey, $vehicleId, $currentQuantity + $quantity);
 
     return true;
 }
@@ -106,22 +69,7 @@ function remove_vehicle_from_cart(string $vehicleId): void
         return;
     }
 
-    $store = cart_store();
-    $ownerCart = $store[$ownerKey] ?? [];
-
-    if (!is_array($ownerCart) || !array_key_exists($vehicleId, $ownerCart)) {
-        return;
-    }
-
-    unset($ownerCart[$vehicleId]);
-
-    if ($ownerCart === []) {
-        unset($store[$ownerKey]);
-    } else {
-        $store[$ownerKey] = $ownerCart;
-    }
-
-    save_cart_store($store);
+    cart_repository()->remove($ownerKey, $vehicleId);
 }
 
 function clear_current_cart(): void
@@ -132,14 +80,7 @@ function clear_current_cart(): void
         return;
     }
 
-    $store = cart_store();
-
-    if (!array_key_exists($ownerKey, $store)) {
-        return;
-    }
-
-    unset($store[$ownerKey]);
-    save_cart_store($store);
+    cart_repository()->clearForUser($ownerKey);
 }
 
 /**
@@ -172,7 +113,7 @@ function cart_total_php(): int
     $total = 0;
 
     foreach (cart_line_items() as $lineItem) {
-        $total += (int) $lineItem['line_total_php'];
+        $total += (int) ($lineItem['line_total_php'] ?? 0);
     }
 
     return $total;

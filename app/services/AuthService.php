@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 final class AuthService
 {
-    private SupabaseClient $supabaseClient;
+    private UserRepository $users;
     private AuthValidator $validator;
     private LoginRedirectResolver $redirectResolver;
+    private EmailVerificationService $emailVerificationService;
 
     public function __construct(
-        SupabaseClient $supabaseClient,
+        UserRepository $users,
         ?AuthValidator $validator = null,
-        ?LoginRedirectResolver $redirectResolver = null
+        ?LoginRedirectResolver $redirectResolver = null,
+        ?EmailVerificationService $emailVerificationService = null
     ) {
-        $this->supabaseClient = $supabaseClient;
+        $this->users = $users;
         $this->validator = $validator ?? new AuthValidator();
         $this->redirectResolver = $redirectResolver ?? new LoginRedirectResolver();
+        $this->emailVerificationService = $emailVerificationService ?? email_verification_service();
     }
 
     /**
@@ -34,47 +37,47 @@ final class AuthService
             ];
         }
 
-        $signupResponse = $this->supabaseClient->postAuth('signup', [
-            'email' => trim((string) $input['email']),
-            'password' => (string) $input['password'],
-            'email_redirect_to' => app_public_url('auth-callback.php'),
-            'data' => [
+        $email = strtolower(trim((string) $input['email']));
+        $existingUser = $this->users->findByEmail($email);
+
+        if (is_array($existingUser) && ($existingUser['email_verified_at'] ?? null) !== null) {
+            return [
+                'ok' => false,
+                'errors' => ['form' => 'That email is already registered. Please sign in instead.'],
+                'message' => null,
+            ];
+        }
+
+        try {
+            $existingRole = is_array($existingUser) ? (string) ($existingUser['role'] ?? 'Buyer') : 'Buyer';
+            $existingInvitedByUserId = is_array($existingUser) ? ($existingUser['invited_by_user_id'] ?? null) : null;
+            $existingInvitedAt = is_array($existingUser) ? ($existingUser['invited_at'] ?? null) : null;
+            $role = $existingRole === 'Admin' ? 'Admin' : 'Buyer';
+
+            $attributes = [
                 'name' => trim((string) $input['name']),
-                'role' => 'Buyer',
-            ],
-        ]);
-
-        if (!$signupResponse['ok']) {
-            return [
-                'ok' => false,
-                'errors' => ['form' => $this->resolveRegistrationErrorMessage($signupResponse['error'] ?? null)],
-                'message' => null,
+                'email' => $email,
+                'password_hash' => password_hash((string) $input['password'], PASSWORD_DEFAULT),
+                'role' => $role,
+                'address' => trim((string) $input['complete_address']),
+                'contact_no' => trim((string) $input['contact_number']),
+                'email_verified_at' => null,
+                'access_status' => 'pending_verification',
+                'invited_by_user_id' => $existingInvitedByUserId,
+                'invited_at' => $existingInvitedAt,
             ];
-        }
 
-        $userId = $this->extractSignupUserId($signupResponse['data'] ?? null);
+            if (is_array($existingUser)) {
+                $user = $this->users->update((string) $existingUser['id'], $attributes);
+            } else {
+                $user = $this->users->create($attributes);
+            }
 
-        if (!is_string($userId) || $userId === '') {
+            $this->emailVerificationService->sendForUser($user);
+        } catch (Throwable $exception) {
             return [
                 'ok' => false,
-                'errors' => ['form' => 'Account created, but the user profile could not be initialized.'],
-                'message' => null,
-            ];
-        }
-
-        $profileResponse = $this->supabaseClient->postRest(supabase_users_table(), [
-            'auth_user_id' => $userId,
-            'name' => trim((string) $input['name']),
-            'email' => trim((string) $input['email']),
-            'role' => 'Buyer',
-            'address' => trim((string) $input['complete_address']),
-            'contact_no' => trim((string) $input['contact_number']),
-        ]);
-
-        if (!$profileResponse['ok']) {
-            return [
-                'ok' => false,
-                'errors' => ['form' => $this->resolveProfileErrorMessage($profileResponse['error'] ?? null)],
+                'errors' => ['form' => 'Unable to create your account right now. Please verify the email settings and try again.'],
                 'message' => null,
             ];
         }
@@ -82,7 +85,7 @@ final class AuthService
         return [
             'ok' => true,
             'errors' => [],
-            'message' => 'Account created. Please check your email to confirm your registration.',
+            'message' => 'Account created. Check your inbox and confirm your email before signing in.',
         ];
     }
 
@@ -104,51 +107,49 @@ final class AuthService
             ];
         }
 
-        $tokenResponse = $this->supabaseClient->postAuth('token?grant_type=password', [
-            'email' => trim((string) $input['email']),
-            'password' => (string) $input['password'],
+        $userRecord = $this->users->findByEmail((string) $input['email']);
+
+        if (!is_array($userRecord) || !$this->passwordMatches($userRecord, (string) $input['password'])) {
+            return [
+                'ok' => false,
+                'errors' => ['form' => 'Invalid login or password. Remember that password is case-sensitive.'],
+                'message' => null,
+                'user' => null,
+                'redirect' => 'index.php',
+            ];
+        }
+
+        if (($userRecord['email_verified_at'] ?? null) === null) {
+            return [
+                'ok' => false,
+                'errors' => ['form' => 'Please confirm your email address before signing in. If you need a fresh link, sign up again with the same email.'],
+                'message' => null,
+                'user' => null,
+                'redirect' => 'index.php',
+            ];
+        }
+
+        if (($userRecord['access_status'] ?? 'active') !== 'active') {
+            return [
+                'ok' => false,
+                'errors' => ['form' => 'This account is currently disabled. Please contact an administrator.'],
+                'message' => null,
+                'user' => null,
+                'redirect' => 'index.php',
+            ];
+        }
+
+        $updatedUserRecord = $this->users->update((string) $userRecord['id'], [
+            'last_seen_at' => gmdate('Y-m-d H:i:s'),
+            'email_verified_at' => $userRecord['email_verified_at'] ?? gmdate('Y-m-d H:i:s'),
         ]);
 
-        if (!$tokenResponse['ok']) {
-            return [
-                'ok' => false,
-                'errors' => ['form' => $this->resolveLoginErrorMessage($tokenResponse['error'])],
-                'message' => null,
-                'user' => null,
-                'redirect' => 'index.php',
-            ];
-        }
-
-        $authUser = $tokenResponse['data']['user'] ?? [];
-        $authUserId = is_array($authUser) ? ($authUser['id'] ?? null) : null;
-
-        if (!is_string($authUserId) || $authUserId === '') {
-            return [
-                'ok' => false,
-                'errors' => ['form' => 'The authenticated account is missing an identifier.'],
-                'message' => null,
-                'user' => null,
-                'redirect' => 'index.php',
-            ];
-        }
-
-        $profileResponse = $this->supabaseClient->getRest(
-            supabase_users_table(),
-            'auth_user_id=eq.' . rawurlencode($authUserId) . '&select=*'
-        );
-
-        $profile = null;
-
-        if ($profileResponse['ok'] && is_array($profileResponse['data']) && isset($profileResponse['data'][0]) && is_array($profileResponse['data'][0])) {
-            $profile = $profileResponse['data'][0];
-        }
-
-        $role = $this->resolveRole($profile, $authUser);
+        $role = $this->resolveRole($updatedUserRecord);
         $user = [
-            'id' => $profile['id'] ?? $authUserId,
-            'auth_user_id' => $authUserId,
-            'email' => $profile['email'] ?? $authUser['email'] ?? '',
-            'name' => $profile['name'] ?? $authUser['user_metadata']['name'] ?? 'Synapse Member',
+            'id' => $updatedUserRecord['id'],
+            'auth_user_id' => $updatedUserRecord['id'],
+            'email' => $updatedUserRecord['email'],
+            'name' => $updatedUserRecord['name'] ?: 'Synapse Member',
             'role' => $role,
         ];
 
@@ -162,108 +163,26 @@ final class AuthService
     }
 
     /**
-     * @param array<string, mixed>|null $profile
-     * @param array<string, mixed> $authUser
+     * @param array<string, mixed> $userRecord
      */
-    private function resolveRole(?array $profile, array $authUser): string
+    private function passwordMatches(array $userRecord, string $password): bool
     {
-        $profileRole = $profile['role'] ?? null;
+        $passwordHash = $userRecord['password_hash'] ?? null;
 
-        if (is_string($profileRole) && $profileRole !== '') {
-            return $profileRole;
-        }
-
-        $appRole = $authUser['app_metadata']['role'] ?? null;
-
-        if (is_string($appRole) && $appRole !== '') {
-            return $appRole;
-        }
-
-        $userRole = $authUser['user_metadata']['role'] ?? null;
-
-        if (is_string($userRole) && $userRole !== '') {
-            return $userRole;
-        }
-
-        return 'Buyer';
-    }
-
-    private function resolveLoginErrorMessage(?string $error): string
-    {
-        $normalized = strtolower(trim((string) $error));
-
-        if ($normalized === '') {
-            return 'Invalid login or password. Remember that password is case-sensitive.';
-        }
-
-        $invalidCredentialErrors = [
-            'invalid login credentials',
-            'email not confirmed',
-            'invalid email or password',
-        ];
-
-        if (in_array($normalized, $invalidCredentialErrors, true)) {
-            return 'Invalid login or password. Remember that password is case-sensitive.';
-        }
-
-        return $error;
-    }
-
-    private function resolveRegistrationErrorMessage(?string $error): string
-    {
-        $normalized = strtolower(trim((string) $error));
-
-        if (str_contains($normalized, 'email rate limit exceeded')) {
-            return 'Too many signup attempts right now. Please wait a few minutes and try again.';
-        }
-
-        if ($normalized === '') {
-            return 'Unable to create your account right now.';
-        }
-
-        return $error;
-    }
-
-    private function resolveProfileErrorMessage(?string $error): string
-    {
-        $normalized = strtolower(trim((string) $error));
-
-        if (str_contains($normalized, 'duplicate key value violates unique constraint "users_email_key"')) {
-            return 'That email is already registered. Please sign in or check your email confirmation link.';
-        }
-
-        if ($normalized === '') {
-            return 'Unable to save the user profile.';
-        }
-
-        return $error;
+        return is_string($passwordHash) && $passwordHash !== '' && password_verify($password, $passwordHash);
     }
 
     /**
-     * Supabase signup responses vary by surface:
-     * raw Auth REST can return the user fields at the top level,
-     * while SDK-style responses nest them under `user`.
-     *
-     * @param array<string, mixed>|array<mixed>|null $data
+     * @param array<string, mixed> $userRecord
      */
-    private function extractSignupUserId(array|null $data): ?string
+    private function resolveRole(array $userRecord): string
     {
-        if (!is_array($data)) {
-            return null;
+        $role = $userRecord['role'] ?? null;
+
+        if (is_string($role) && $role !== '') {
+            return $role;
         }
 
-        $nestedUserId = $data['user']['id'] ?? null;
-
-        if (is_string($nestedUserId) && $nestedUserId !== '') {
-            return $nestedUserId;
-        }
-
-        $topLevelUserId = $data['id'] ?? null;
-
-        if (is_string($topLevelUserId) && $topLevelUserId !== '') {
-            return $topLevelUserId;
-        }
-
-        return null;
+        return 'Buyer';
     }
 }

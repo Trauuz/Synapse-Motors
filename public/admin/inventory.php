@@ -34,7 +34,7 @@ $lowStockCount = count(array_filter($inventory, static fn(array $vehicle): bool 
     <link rel="stylesheet" href="../assets/css/media.css">
 </head>
 
-<body<?= $showEditModal ? ' class="auth-modal-open admin-editor-open"' : '' ?>>
+<body>
     <main class="admin-workbench">
         <aside class="admin-sidebar" aria-label="Seller navigation">
             <div class="admin-sidebar-top">

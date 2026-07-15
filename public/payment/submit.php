@@ -46,16 +46,29 @@ if ($errors !== []) {
 $customer = is_array($draft['customer'] ?? null) ? $draft['customer'] : [];
 $amountPhp = (int) ($draft['total_php'] ?? 0);
 $reference = 'SM-' . date('ymd') . '-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 6));
+$orderId = current_checkout_order_id();
+
+if (!is_string($orderId) || $orderId === '') {
+    header('Location: ../checkout.php');
+    exit;
+}
+
+$submittedOrder = order_repository()->submitDraft(
+    $orderId,
+    $old['payment_method'],
+    $paymentMethodLabels[$old['payment_method']],
+    $reference
+);
 
 save_latest_payment_receipt([
     'reference' => $reference,
     'payment_method' => $old['payment_method'],
     'payment_method_label' => $paymentMethodLabels[$old['payment_method']],
-    'amount_php' => $amountPhp,
+    'amount_php' => (int) ($submittedOrder['total_php'] ?? $amountPhp),
     'customer_name' => (string) ($customer['name'] ?? 'Synapse Member'),
 ]);
 
-clear_checkout_draft();
+unset($_SESSION[CHECKOUT_DRAFT_SESSION_KEY]);
 clear_current_cart();
 
 header('Location: ../index.php');

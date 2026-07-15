@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
-<?php require_once dirname(__DIR__) . '/app/helpers/vehicles.php'; ?>
 
 <head>
     <meta charset="utf-8">
@@ -112,7 +110,7 @@
                                 <button class="browse-cars-link" type="submit">Add to Cart</button>
                             </form>
                             <?php else: ?>
-                            <a class="browse-cars-link" href="#" data-auth-trigger="cart" data-auth-label="cart">Add
+                            <a class="browse-cars-link" href="#" data-auth-trigger="save" data-auth-label="save">Add
                                 to Cart</a>
                             <?php endif; ?>
                         </div>
@@ -126,9 +124,6 @@
     <?php require __DIR__ . '/includes/footer.php'; ?>
     <?php require __DIR__ . '/includes/auth_modal.php'; ?>
 
-    <script>
-    window.SUPABASE_CONFIG = <?= json_encode(supabase_public_config(), JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) ?>;
-    </script>
     <script src="assets/js/landing.js" defer></script>
 </body>
 

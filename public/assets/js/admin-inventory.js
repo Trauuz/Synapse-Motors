@@ -20,8 +20,6 @@
 
     const openModal = () => {
         modalShell.hidden = false;
-        document.body.classList.add('auth-modal-open');
-        document.body.classList.add('admin-editor-open');
     };
 
     const closeModal = () => {
@@ -30,8 +28,6 @@
         }
 
         modalShell.hidden = true;
-        document.body.classList.remove('auth-modal-open');
-        document.body.classList.remove('admin-editor-open');
     };
 
     const fillModal = (trigger) => {

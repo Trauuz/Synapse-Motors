@@ -1,8 +1,15 @@
 .agents/
 .hallmark/
-.tests/
+.codex/
+tests/
+tmp/
 
-.skills-lock.json
+skills-lock.json
 .env
 .env.local
 .env.*.local
+*.log
+php_errors.log
+.idea/
+.vscode/
+Thumbs.db

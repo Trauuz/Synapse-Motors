@@ -3,87 +3,17 @@
 declare(strict_types=1);
 
 const ADMIN_DEFAULT_ACCESS_STATUS = 'active';
-
-function admin_directory_data_path(): string
-{
-    if (defined('ADMIN_DIRECTORY_DATA_PATH')) {
-        return (string) ADMIN_DIRECTORY_DATA_PATH;
-    }
-
-    return dirname(__DIR__, 2) . '/tmp/admin-users.json';
-}
-
-function admin_audit_log_data_path(): string
-{
-    if (defined('ADMIN_AUDIT_LOG_DATA_PATH')) {
-        return (string) ADMIN_AUDIT_LOG_DATA_PATH;
-    }
-
-    return dirname(__DIR__, 2) . '/tmp/admin-audit-log.json';
-}
-
-function admin_portal_storage_dir(string $filePath): void
-{
-    $directory = dirname($filePath);
-
-    if (!is_dir($directory)) {
-        mkdir($directory, 0777, true);
-    }
-}
+const ADMIN_SESSION_SYNC_INTERVAL_SECONDS = 300;
 
 /**
- * @return array<int, array<string, mixed>>
+ * @param array<string, mixed> $admin
+ * @return array<string, mixed>
  */
-function load_admin_directory(): array
+function normalize_admin_record(array $admin): array
 {
-    $filePath = admin_directory_data_path();
+    $admin['email_verified'] = ($admin['email_verified_at'] ?? null) !== null;
 
-    if (!is_file($filePath)) {
-        return [];
-    }
-
-    $contents = file_get_contents($filePath);
-
-    if (!is_string($contents) || trim($contents) === '') {
-        return [];
-    }
-
-    $decoded = json_decode($contents, true);
-
-    return is_array($decoded) ? array_values(array_filter($decoded, 'is_array')) : [];
-}
-
-/**
- * @param array<int, array<string, mixed>> $admins
- */
-function save_admin_directory(array $admins): void
-{
-    $filePath = admin_directory_data_path();
-    admin_portal_storage_dir($filePath);
-    file_put_contents($filePath, json_encode(array_values($admins), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
-}
-
-function current_admin_lookup_key(): ?string
-{
-    $user = current_user();
-
-    if (!is_array($user)) {
-        return null;
-    }
-
-    $authUserId = $user['auth_user_id'] ?? null;
-
-    if (is_string($authUserId) && $authUserId !== '') {
-        return 'auth:' . $authUserId;
-    }
-
-    $email = $user['email'] ?? null;
-
-    if (is_string($email) && $email !== '') {
-        return 'email:' . strtolower($email);
-    }
-
-    return null;
+    return $admin;
 }
 
 function normalize_admin_email(string $email): string
@@ -97,27 +27,13 @@ function normalize_admin_email(string $email): string
  */
 function persist_admin_record(array $admin): array
 {
-    $admins = load_admin_directory();
-    $updatedAdmins = [];
-    $matched = false;
+    $adminId = (string) ($admin['id'] ?? '');
 
-    foreach ($admins as $existingAdmin) {
-        if (($existingAdmin['id'] ?? null) !== ($admin['id'] ?? null)) {
-            $updatedAdmins[] = $existingAdmin;
-            continue;
-        }
-
-        $updatedAdmins[] = $admin;
-        $matched = true;
+    if ($adminId === '') {
+        return normalize_admin_record(user_repository()->create($admin));
     }
 
-    if (!$matched) {
-        $updatedAdmins[] = $admin;
-    }
-
-    save_admin_directory($updatedAdmins);
-
-    return $admin;
+    return normalize_admin_record(user_repository()->update($adminId, $admin));
 }
 
 /**
@@ -125,13 +41,22 @@ function persist_admin_record(array $admin): array
  */
 function admin_user_accounts(): array
 {
-    $admins = load_admin_directory();
+    return array_map('normalize_admin_record', user_repository()->allAdmins());
+}
 
-    usort($admins, static function (array $left, array $right): int {
-        return strcmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? ''));
-    });
+function admin_user_count(): int
+{
+    return user_repository()->countAdmins();
+}
 
-    return $admins;
+function active_admin_user_count(): int
+{
+    return user_repository()->countAdminsByAccessStatus(ADMIN_DEFAULT_ACCESS_STATUS);
+}
+
+function pending_admin_user_count(): int
+{
+    return user_repository()->countAdminsPendingVerification();
 }
 
 /**
@@ -139,13 +64,100 @@ function admin_user_accounts(): array
  */
 function admin_user_by_id(string $adminId): ?array
 {
-    foreach (load_admin_directory() as $admin) {
-        if (($admin['id'] ?? null) === $adminId) {
-            return $admin;
-        }
+    $admin = user_repository()->findById($adminId);
+
+    if (!is_array($admin) || (string) ($admin['role'] ?? '') !== 'Admin') {
+        return null;
     }
 
-    return null;
+    return normalize_admin_record($admin);
+}
+
+/**
+ * @return array<string, mixed>|null
+ */
+function admin_user_by_email(string $email): ?array
+{
+    $admin = user_repository()->findAdminByEmail($email);
+
+    if (!is_array($admin)) {
+        return null;
+    }
+
+    return normalize_admin_record($admin);
+}
+
+function admin_session_cache_key(): string
+{
+    return 'current_admin_account';
+}
+
+function admin_session_sync_cache_key(): string
+{
+    return 'current_admin_account_synced_at';
+}
+
+/**
+ * @param array<string, mixed> $admin
+ */
+function cache_current_admin_account(array $admin): array
+{
+    $_SESSION[admin_session_cache_key()] = $admin;
+    $_SESSION[admin_session_sync_cache_key()] = time();
+
+    return $admin;
+}
+
+function current_admin_session_snapshot(): ?array
+{
+    $admin = $_SESSION[admin_session_cache_key()] ?? null;
+
+    return is_array($admin) ? $admin : null;
+}
+
+function admin_session_snapshot_is_fresh(): bool
+{
+    $syncedAt = $_SESSION[admin_session_sync_cache_key()] ?? null;
+
+    if (!is_int($syncedAt)) {
+        return false;
+    }
+
+    return (time() - $syncedAt) < ADMIN_SESSION_SYNC_INTERVAL_SECONDS;
+}
+
+/**
+ * @param array<string, mixed> $existingAdmin
+ * @param array<string, mixed> $currentUser
+ */
+function admin_profile_needs_sync(array $existingAdmin, array $currentUser): bool
+{
+    $expectedName = (string) ($currentUser['name'] ?? $existingAdmin['name'] ?? 'Admin');
+    $expectedEmail = normalize_admin_email((string) ($currentUser['email'] ?? ''));
+    $currentName = (string) ($existingAdmin['name'] ?? '');
+    $currentEmail = normalize_admin_email((string) ($existingAdmin['email'] ?? ''));
+
+    if ($currentName !== $expectedName || $currentEmail !== $expectedEmail) {
+        return true;
+    }
+
+    if ((string) ($existingAdmin['role'] ?? '') !== 'Admin') {
+        return true;
+    }
+
+    $lastSeenAt = (string) ($existingAdmin['last_seen_at'] ?? '');
+
+    if ($lastSeenAt === '') {
+        return true;
+    }
+
+    $lastSeenTimestamp = strtotime($lastSeenAt . ' UTC');
+
+    if ($lastSeenTimestamp === false) {
+        return true;
+    }
+
+    return (time() - $lastSeenTimestamp) >= ADMIN_SESSION_SYNC_INTERVAL_SECONDS;
 }
 
 /**
@@ -153,58 +165,118 @@ function admin_user_by_id(string $adminId): ?array
  */
 function current_admin_account(): ?array
 {
+    static $cachedAdmin = null;
+    static $hasResolved = false;
+
+    if ($hasResolved) {
+        return is_array($cachedAdmin) ? $cachedAdmin : null;
+    }
+
     if (!is_admin()) {
+        $hasResolved = true;
         return null;
     }
 
     $user = current_user();
 
     if (!is_array($user)) {
+        $hasResolved = true;
         return null;
     }
 
-    $email = normalize_admin_email((string) ($user['email'] ?? ''));
-    $authUserId = trim((string) ($user['auth_user_id'] ?? ''));
+    $sessionAdmin = current_admin_session_snapshot();
+    $sessionUserId = trim((string) ($sessionAdmin['id'] ?? ''));
+    $authUserId = trim((string) ($user['id'] ?? $user['auth_user_id'] ?? ''));
+    $authEmail = normalize_admin_email((string) ($user['email'] ?? ''));
 
-    if ($email === '') {
-        return null;
+    if (
+        is_array($sessionAdmin)
+        && admin_session_snapshot_is_fresh()
+        && (
+            ($sessionUserId !== '' && $sessionUserId === $authUserId)
+            || normalize_admin_email((string) ($sessionAdmin['email'] ?? '')) === $authEmail
+        )
+    ) {
+        $cachedAdmin = $sessionAdmin;
+        $hasResolved = true;
+
+        return $cachedAdmin;
     }
 
-    foreach (load_admin_directory() as $admin) {
-        $adminEmail = normalize_admin_email((string) ($admin['email'] ?? ''));
-        $adminAuthUserId = trim((string) ($admin['auth_user_id'] ?? ''));
+    $userId = $authUserId;
+    $email = $authEmail;
 
-        if ($adminAuthUserId !== '' && $adminAuthUserId === $authUserId) {
-            $admin['name'] = (string) ($user['name'] ?? $admin['name'] ?? 'Admin');
-            $admin['email_verified'] = true;
-            $admin['last_seen_at'] = gmdate('c');
+    if ($userId !== '') {
+        $existingAdmin = admin_user_by_id($userId);
 
-            return persist_admin_record($admin);
-        }
+        if (is_array($existingAdmin)) {
+            if (admin_profile_needs_sync($existingAdmin, $user)) {
+                $existingAdmin = persist_admin_record([
+                    'id' => $userId,
+                    'name' => (string) ($user['name'] ?? $existingAdmin['name'] ?? 'Admin'),
+                    'email' => $email,
+                    'role' => 'Admin',
+                    'password_hash' => $existingAdmin['password_hash'] ?? null,
+                    'address' => (string) ($existingAdmin['address'] ?? ''),
+                    'contact_no' => (string) ($existingAdmin['contact_no'] ?? ''),
+                    'email_verified_at' => $existingAdmin['email_verified_at'] ?? gmdate('Y-m-d H:i:s'),
+                    'access_status' => (string) ($existingAdmin['access_status'] ?? ADMIN_DEFAULT_ACCESS_STATUS),
+                    'invited_by_user_id' => $existingAdmin['invited_by_user_id'] ?? null,
+                    'invited_at' => $existingAdmin['invited_at'] ?? null,
+                    'last_seen_at' => gmdate('Y-m-d H:i:s'),
+                ]);
+            }
 
-        if ($adminEmail !== '' && $adminEmail === $email) {
-            $admin['auth_user_id'] = $authUserId;
-            $admin['name'] = (string) ($user['name'] ?? $admin['name'] ?? 'Admin');
-            $admin['email_verified'] = true;
-            $admin['last_seen_at'] = gmdate('c');
+            $cachedAdmin = cache_current_admin_account($existingAdmin);
+            $hasResolved = true;
 
-            return persist_admin_record($admin);
+            return $cachedAdmin;
         }
     }
 
-    return persist_admin_record([
-        'id' => 'admin-' . bin2hex(random_bytes(6)),
-        'auth_user_id' => $authUserId,
+    $adminByEmail = admin_user_by_email($email);
+
+    if (is_array($adminByEmail)) {
+        if (admin_profile_needs_sync($adminByEmail, $user)) {
+            $adminByEmail = persist_admin_record([
+                'id' => (string) ($adminByEmail['id'] ?? ''),
+                'name' => (string) ($user['name'] ?? $adminByEmail['name'] ?? 'Admin'),
+                'email' => $email,
+                'role' => 'Admin',
+                'password_hash' => $adminByEmail['password_hash'] ?? null,
+                'address' => (string) ($adminByEmail['address'] ?? ''),
+                'contact_no' => (string) ($adminByEmail['contact_no'] ?? ''),
+                'email_verified_at' => $adminByEmail['email_verified_at'] ?? gmdate('Y-m-d H:i:s'),
+                'access_status' => (string) ($adminByEmail['access_status'] ?? ADMIN_DEFAULT_ACCESS_STATUS),
+                'invited_by_user_id' => $adminByEmail['invited_by_user_id'] ?? null,
+                'invited_at' => $adminByEmail['invited_at'] ?? null,
+                'last_seen_at' => gmdate('Y-m-d H:i:s'),
+            ]);
+        }
+
+        $cachedAdmin = cache_current_admin_account($adminByEmail);
+        $hasResolved = true;
+
+        return $cachedAdmin;
+    }
+
+    $cachedAdmin = cache_current_admin_account(normalize_admin_record(user_repository()->create([
+        'id' => $userId !== '' ? $userId : synapse_uuid(),
         'name' => (string) ($user['name'] ?? 'Admin'),
         'email' => $email,
+        'password_hash' => null,
         'role' => 'Admin',
-        'email_verified' => true,
+        'address' => '',
+        'contact_no' => '',
+        'email_verified_at' => gmdate('Y-m-d H:i:s'),
         'access_status' => ADMIN_DEFAULT_ACCESS_STATUS,
-        'invited_by' => null,
+        'invited_by_user_id' => null,
         'invited_at' => null,
-        'created_at' => gmdate('c'),
-        'last_seen_at' => gmdate('c'),
-    ]);
+        'last_seen_at' => gmdate('Y-m-d H:i:s'),
+    ])));
+    $hasResolved = true;
+
+    return $cachedAdmin;
 }
 
 function admin_access_is_enabled(): bool
@@ -226,29 +298,25 @@ function invite_admin_user(string $name, string $email): array
     $normalizedEmail = normalize_admin_email($email);
     $currentAdmin = current_admin_account();
 
-    foreach (load_admin_directory() as $existingAdmin) {
-        if (normalize_admin_email((string) ($existingAdmin['email'] ?? '')) !== $normalizedEmail) {
-            continue;
+    foreach (admin_user_accounts() as $existingAdmin) {
+        if (normalize_admin_email((string) ($existingAdmin['email'] ?? '')) === $normalizedEmail) {
+            return $existingAdmin;
         }
-
-        return $existingAdmin;
     }
 
-    $record = [
-        'id' => 'admin-' . bin2hex(random_bytes(6)),
-        'auth_user_id' => '',
+    return normalize_admin_record(user_repository()->create([
         'name' => trim($name) === '' ? 'New admin' : trim($name),
         'email' => $normalizedEmail,
+        'password_hash' => null,
         'role' => 'Admin',
-        'email_verified' => false,
+        'address' => '',
+        'contact_no' => '',
+        'email_verified_at' => null,
         'access_status' => ADMIN_DEFAULT_ACCESS_STATUS,
-        'invited_by' => is_array($currentAdmin) ? (string) ($currentAdmin['email'] ?? '') : null,
-        'invited_at' => gmdate('c'),
-        'created_at' => gmdate('c'),
+        'invited_by_user_id' => is_array($currentAdmin) ? (string) ($currentAdmin['id'] ?? '') : null,
+        'invited_at' => gmdate('Y-m-d H:i:s'),
         'last_seen_at' => null,
-    ];
-
-    return persist_admin_record($record);
+    ]));
 }
 
 /**
@@ -263,7 +331,6 @@ function update_admin_user(string $adminId, array $changes): array
         throw new RuntimeException('Admin account not found.');
     }
 
-    $nextName = trim((string) ($changes['name'] ?? $admin['name'] ?? 'Admin'));
     $nextStatus = (string) ($changes['access_status'] ?? $admin['access_status'] ?? ADMIN_DEFAULT_ACCESS_STATUS);
 
     if ($nextStatus !== 'active' && $nextStatus !== 'disabled') {
@@ -277,10 +344,19 @@ function update_admin_user(string $adminId, array $changes): array
         $nextStatus = ADMIN_DEFAULT_ACCESS_STATUS;
     }
 
-    $admin['name'] = $nextName === '' ? 'Admin' : $nextName;
-    $admin['access_status'] = $nextStatus;
-
-    return persist_admin_record($admin);
+    return user_repository()->update($adminId, [
+        'name' => trim((string) ($changes['name'] ?? $admin['name'] ?? '')) ?: 'Admin',
+        'email' => (string) ($admin['email'] ?? ''),
+        'password_hash' => $admin['password_hash'] ?? null,
+        'role' => 'Admin',
+        'address' => (string) ($admin['address'] ?? ''),
+        'contact_no' => (string) ($admin['contact_no'] ?? ''),
+        'email_verified_at' => $admin['email_verified_at'] ?? null,
+        'access_status' => $nextStatus,
+        'invited_by_user_id' => $admin['invited_by_user_id'] ?? null,
+        'invited_at' => $admin['invited_at'] ?? null,
+        'last_seen_at' => $admin['last_seen_at'] ?? null,
+    ]);
 }
 
 /**
@@ -288,31 +364,42 @@ function update_admin_user(string $adminId, array $changes): array
  */
 function load_admin_audit_log(): array
 {
-    $filePath = admin_audit_log_data_path();
+    $currentAdmin = current_admin_account();
 
-    if (!is_file($filePath)) {
+    if (!is_array($currentAdmin)) {
         return [];
     }
 
-    $contents = file_get_contents($filePath);
+    return admin_audit_log_repository()->forActor((string) ($currentAdmin['id'] ?? ''));
+}
 
-    if (!is_string($contents) || trim($contents) === '') {
-        return [];
+function current_admin_audit_log_count(): int
+{
+    $currentAdmin = current_admin_account();
+
+    if (!is_array($currentAdmin)) {
+        return 0;
     }
 
-    $decoded = json_decode($contents, true);
-
-    return is_array($decoded) ? array_values(array_filter($decoded, 'is_array')) : [];
+    return admin_audit_log_repository()->countForActor((string) ($currentAdmin['id'] ?? ''));
 }
 
 /**
- * @param array<int, array<string, mixed>> $entries
+ * @return array<int, array<string, mixed>>
  */
-function save_admin_audit_log(array $entries): void
+function current_admin_recent_audit_log(int $limit = 5): array
 {
-    $filePath = admin_audit_log_data_path();
-    admin_portal_storage_dir($filePath);
-    file_put_contents($filePath, json_encode(array_values($entries), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
+    $currentAdmin = current_admin_account();
+
+    if (!is_array($currentAdmin)) {
+        return [];
+    }
+
+    return admin_audit_log_repository()->forActorPage(
+        (string) ($currentAdmin['id'] ?? ''),
+        max(1, $limit),
+        0
+    );
 }
 
 function record_admin_activity(string $action, string $summary): void
@@ -323,18 +410,14 @@ function record_admin_activity(string $action, string $summary): void
         return;
     }
 
-    $entries = load_admin_audit_log();
-    array_unshift($entries, [
-        'id' => 'audit-' . bin2hex(random_bytes(6)),
-        'actor_admin_id' => (string) ($currentAdmin['id'] ?? ''),
+    admin_audit_log_repository()->create([
+        'actor_user_id' => (string) ($currentAdmin['id'] ?? ''),
         'actor_name' => (string) ($currentAdmin['name'] ?? 'Admin'),
         'actor_email' => (string) ($currentAdmin['email'] ?? ''),
         'action' => $action,
         'summary' => $summary,
-        'occurred_at' => gmdate('c'),
+        'occurred_at' => (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format('Y-m-d H:i:s.u'),
     ]);
-
-    save_admin_audit_log(array_slice($entries, 0, 200));
 }
 
 /**
@@ -342,15 +425,43 @@ function record_admin_activity(string $action, string $summary): void
  */
 function current_admin_audit_log(): array
 {
-    $currentAdmin = current_admin_account();
+    return load_admin_audit_log();
+}
 
-    if (!is_array($currentAdmin)) {
-        return [];
+/**
+ * @return array{
+ *   entries: array<int, array<string, mixed>>,
+ *   total_entries: int,
+ *   total_pages: int,
+ *   current_page: int,
+ *   per_page: int,
+ *   has_previous_page: bool,
+ *   has_next_page: bool
+ * }
+ */
+function current_admin_audit_log_page(int $page = 1, int $perPage = 10): array
+{
+    $normalizedPerPage = max(1, $perPage);
+    $totalEntries = current_admin_audit_log_count();
+    $totalPages = max(1, (int) ceil($totalEntries / $normalizedPerPage));
+    $currentPage = min(max(1, $page), $totalPages);
+    $offset = ($currentPage - 1) * $normalizedPerPage;
+    $entries = current_admin_recent_audit_log($normalizedPerPage);
+
+    if ($offset > 0) {
+        $currentAdmin = current_admin_account();
+        $entries = is_array($currentAdmin)
+            ? admin_audit_log_repository()->forActorPage((string) ($currentAdmin['id'] ?? ''), $normalizedPerPage, $offset)
+            : [];
     }
 
-    $currentAdminId = (string) ($currentAdmin['id'] ?? '');
-
-    return array_values(array_filter(load_admin_audit_log(), static function (array $entry) use ($currentAdminId): bool {
-        return (string) ($entry['actor_admin_id'] ?? '') === $currentAdminId;
-    }));
+    return [
+        'entries' => $entries,
+        'total_entries' => $totalEntries,
+        'total_pages' => $totalPages,
+        'current_page' => $currentPage,
+        'per_page' => $normalizedPerPage,
+        'has_previous_page' => $currentPage > 1,
+        'has_next_page' => $currentPage < $totalPages,
+    ];
 }

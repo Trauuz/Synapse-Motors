@@ -7,13 +7,12 @@ require_admin();
 record_admin_activity('Viewed dashboard', 'Opened the seller dashboard.');
 
 $inventory = synapse_vehicle_inventory();
-$admins = admin_user_accounts();
 $currentAdmin = current_admin_account();
-$auditEntries = current_admin_audit_log();
-$activeAdminCount = count(array_filter($admins, static fn(array $admin): bool => ($admin['access_status'] ?? '') === 'active'));
+$recentActivity = current_admin_recent_audit_log(5);
+$activeAdminCount = active_admin_user_count();
 $activeVehicleCount = count(array_filter($inventory, static fn(array $vehicle): bool => (int) ($vehicle['stock_quantity'] ?? 0) > 0));
 $totalUnits = array_sum(array_map(static fn(array $vehicle): int => (int) ($vehicle['stock_quantity'] ?? 0), $inventory));
-$recentActivity = array_slice($auditEntries, 0, 5);
+$auditEntryCount = current_admin_audit_log_count();
 $inventoryStatus = array_values(array_filter($inventory, static fn(array $vehicle): bool => (int) ($vehicle['stock_quantity'] ?? 0) <= 2));
 usort($inventoryStatus, static fn(array $left, array $right): int => ((int) ($left['stock_quantity'] ?? 0)) <=> ((int) ($right['stock_quantity'] ?? 0)));
 $inventoryStatus = array_slice($inventoryStatus, 0, 5);
@@ -105,7 +104,7 @@ $inventoryStatus = array_slice($inventoryStatus, 0, 5);
                     <article class="admin-stat-card admin-stat-card-d">
                         <div>
                             <p class="admin-stat-label">Logged actions</p>
-                            <h2><?= count($auditEntries) ?></h2>
+                            <h2><?= $auditEntryCount ?></h2>
                         </div>
                     </article>
                 </section>

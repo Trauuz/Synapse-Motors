@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__) . '/app/config/database.php'; ?>
 <?php require_once dirname(__DIR__) . '/app/bootstrap.php'; ?>
 
 <?php
@@ -35,6 +34,12 @@ $isLoggedIn = is_logged_in();
 
     <main id="main-content" class="cart-page">
         <section class="cart-shell" aria-labelledby="cart-title">
+            <header class="section-heading">
+                <div>
+                    <p class="section-kicker">Cart</p>
+                    <h1 id="cart-title">Your garage, staged for checkout.</h1>
+                </div>
+            </header>
             <?php if (!$isLoggedIn): ?>
             <section class="cart-empty-state" aria-labelledby="cart-signin-title">
                 <p class="section-kicker">Member access</p>
