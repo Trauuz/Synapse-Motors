@@ -1,6 +1,6 @@
+<?php require_once dirname(__DIR__, 2) . '/app/bootstrap.php'; ?>
 <!doctype html>
 <html lang="en">
-<?php require_once dirname(__DIR__, 2) . '/app/bootstrap.php'; ?>
 
 <?php
 require_admin();
