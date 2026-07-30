@@ -6,6 +6,8 @@ Synapse Motors is a school-based project developed for academic purposes. This s
 
 This project is intended for school use and educational presentation. It serves as a sample application for learning, demonstration, and project evaluation.
 
+**Link:** https://synapse-motors.onrender.com/
+
 ## Sample User Accounts
 
 ### Admin
