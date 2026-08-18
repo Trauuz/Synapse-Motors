@@ -19,3 +19,146 @@ Password: `pass`
 
 Email: `synapsemotors@buyer.com`  
 Password: `pass`
+
+## System Overview
+
+The system screenshots in the project documentation show two main user experiences:
+
+- **Buyer-facing experience** - browsing vehicles, viewing vehicle details, managing a cart, checking out, and completing a simulated vehicle reservation.
+- **Administrator experience** - viewing dashboard statistics, managing inventory, managing administrator access, sending invitations, and reviewing reports and the audit log.
+
+The screenshots below are taken from the submitted Synapse Motors system screenshots documentation.
+
+## Buyer Features
+
+### Landing Page
+
+The landing page serves as the main entry point for guests and buyers. It presents featured vehicles, promotional content, and quick navigation throughout the website.
+
+<img src="docs/screenshots/landing-page.png" alt="Synapse Motors landing page" width="900">
+
+### Additional Landing Sections
+
+The landing experience also includes promotional vehicle sections and supporting content designed to guide users toward the available inventory.
+
+<img src="docs/screenshots/landing-sections.png" alt="Additional Synapse Motors landing page sections" width="900">
+
+### Expanded Navigation and Vehicle Directory
+
+The expanded navigation organizes vehicle categories and shopping options so users can browse cars based on their preferences.
+
+The Vehicle Directory displays the available vehicles and supports browsing, searching, category filtering, viewing vehicle details, and adding preferred vehicles to the shopping cart.
+
+<img src="docs/screenshots/navigation-vehicle-directory.png" alt="Expanded navigation and vehicle directory" width="900">
+
+### About Us
+
+The About Us page provides an overview of Synapse Motors and introduces the developer responsible for designing and building the website.
+
+<img src="docs/screenshots/about-page.png" alt="Synapse Motors About Us page" width="900">
+
+### Sign In and Sign Up
+
+The authentication interface provides sign-in and sign-up forms. New users can register and verify their accounts before accessing buyer features.
+
+<img src="docs/screenshots/about-authentication.png" alt="Synapse Motors authentication screens" width="900">
+
+### Email Confirmation
+
+After registration, the system sends an automated email that allows the user to verify their email address and activate the account before accessing the system.
+
+<img src="docs/screenshots/email-confirmation.png" alt="Email confirmation workflow" width="900">
+
+### Cart and Checkout
+
+The Cart page shows the vehicles selected by the buyer and provides controls to review items, remove vehicles, view the order summary, and proceed to checkout. Guest users do not have access to the cart page.
+
+The Checkout page collects buyer contact information, reviews the selected vehicles, and confirms the order details before continuing to the payment step.
+
+<img src="docs/screenshots/cart-checkout.png" alt="Cart and checkout pages" width="900">
+
+### Payment and Completed Order
+
+The Payment page provides a simulated checkout process. Users can select a payment method, review the reservation summary, and confirm a vehicle reservation without using an actual payment gateway.
+
+After confirmation, the Completed Order modal displays the reservation reference and summary and allows the user to continue browsing or close the confirmation dialog.
+
+<img src="docs/screenshots/payment-order-complete.png" alt="Payment page and completed order modal" width="900">
+
+## Administrator Features
+
+### Admin Dashboard and Inventory
+
+The Admin Dashboard is the landing page for users with the Administrator role after a successful login. It provides an overview of the system, including inventory statistics, administrator accounts, recent activities, and quick access to inventory management and reports.
+
+The Inventory page allows administrators to add, edit, or delete vehicle listings, update prices and stock levels, and monitor vehicle availability from a single interface.
+
+<img src="docs/screenshots/admin-dashboard-inventory.png" alt="Admin dashboard and inventory management" width="900">
+
+### Admin Users and Email Invitation
+
+The Admin Users page enables administrators to manage seller accounts by inviting new administrators, monitoring email verification status, updating account information, and managing administrator access within the system.
+
+The email invitation workflow sends an invitation to the recipient, who can use the invited email address to register and activate the administrator account.
+
+<img src="docs/screenshots/admin-users-invitation.png" alt="Admin users page and email invitation workflow" width="900">
+
+### Reports and Audit Log
+
+The Reports page provides an overview of the current inventory status and a comprehensive audit log that records activities performed by administrator accounts within the system.
+
+<img src="docs/screenshots/reports-audit-log.png" alt="Reports and audit log" width="900">
+
+## Main Workflow
+
+```text
+Guest / Buyer
+    |
+    v
+Landing Page
+    |
+    +--> Vehicle Directory --> Vehicle Selection --> Cart
+    |                                      |
+    |                                      v
+    |                                  Checkout
+    |                                      |
+    |                                      v
+    |                               Payment (Simulated)
+    |                                      |
+    |                                      v
+    |                              Completed Order
+    |
+    +--> Sign In / Sign Up --> Email Confirmation --> Buyer Features
+
+Administrator
+    |
+    v
+Admin Dashboard
+    |
+    +--> Inventory Management
+    +--> Admin Users / Invitations
+    +--> Reports / Audit Log
+```
+
+## Documentation Notes
+
+The system documentation presents the following major areas:
+
+| Area | Functionality |
+| --- | --- |
+| Landing Page | Entry point, featured vehicles, promotional content, navigation |
+| Vehicle Directory | Browse, search, filter, view details, add to cart |
+| Authentication | Sign in, sign up, account verification |
+| Email Confirmation | Activate registered user accounts |
+| Cart | Review and manage selected vehicles |
+| Checkout | Collect buyer details and confirm order information |
+| Payment | Simulated payment/reservation process |
+| Order Completion | Reservation confirmation and reference details |
+| Admin Dashboard | System overview, statistics, recent activity, quick access |
+| Inventory | Add, edit, delete vehicles, update price/stock, monitor availability |
+| Admin Users | Manage administrator access and invitations |
+| Reports | Inventory overview and administrator audit log |
+
+## Academic Project
+
+Synapse Motors is presented as a school-based project for demonstration, learning, and evaluation. The supplied documentation focuses on the application's user interface, buyer workflow, authentication flow, and administrator management features.
