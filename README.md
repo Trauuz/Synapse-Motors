@@ -117,6 +117,13 @@ Guest / Buyer
     v
 Landing Page
     |
+    |
+    |
+    +--> Sign In / Sign Up --> Email Confirmation --> Buyer Features
+    |
+    |
+    |
+    |
     +--> Vehicle Directory --> Vehicle Selection --> Cart
     |                                      |
     |                                      v
@@ -128,8 +135,7 @@ Landing Page
     |                                      v
     |                              Completed Order
     |
-    +--> Sign In / Sign Up --> Email Confirmation --> Buyer Features
-
+    |
 Administrator
     |
     v
